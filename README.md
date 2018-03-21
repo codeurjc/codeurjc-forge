@@ -15,19 +15,24 @@ CAUTION: Will destroy all data
 
 # How to config
 
-1. Grant Non-Interactive Users permission to createRepo in Gerrit.
+1. Grant Non-Interactive Users permission to `createRepo` in Gerrit.
 
 2. Create repo
-ssh jenkins@$GERRIT_IP -p 29418 gerrit create-project awesome-project.git --description "'Most better project'"
+
+`ssh jenkins@$GERRIT_IP -p 29418 gerrit create-project awesome-project.git --description "'Most better project'"`
 
 3. Clone repo
-git clone ssh://jenkins@${GERRIT_IP}:29418/awesome-project; cd awesome-project
+
+`git clone ssh://jenkins@${GERRIT_IP}:29418/awesome-project; cd awesome-project`
 
 4. Configure repo
+
+```
 git config user.email "jenkins@domain.local"
 git config user.name "Jenkins Server"
 gitdir=$(git rev-parse --git-dir); scp -p -P 29418 jenkins@${GERRIT_IP}:hooks/commit-msg ${gitdir}/hooks/
 chmod +x .git/hooks/commit-msg
+```
 
 5. Create review job in Jenkins
 
@@ -35,13 +40,13 @@ Jenkins -> New task -> Name: Gerrit-review -> Type: Pipeline
 
 New pipeline configuration:
 
-Build Triggers: Gerrit event
+**Build Triggers**: Gerrit event
 
-Gerrit Trigger:
+### Gerrit Trigger:
 
-- Choose a Server: Gerrit
+**Choose a Server**: Gerrit
 
-**Advance**:
+> Under **advance**
 
 ### Gerrit Reporting Values:
 
@@ -61,41 +66,43 @@ Not Built: 0
 
 ### Custom Build Messages
 
-Build Start Message	
+- Build Start Message	
 
 ```gerrit review <CHANGE>,<PATCHSET> --message '"Build Started <BUILDURL> <STARTED_STATS>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
 
-Build Successful Message
+- Build Successful Message
 
 ```
 gerrit review <CHANGE>,<PATCHSET> --message '"Build Successful <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>
 ```
 
-Build Failure Message
+- Build Failure Message
 
 ```gerrit review <CHANGE>,<PATCHSET> --message '"Build Failure <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
 
-Build Unstable Message
+- Build Unstable Message
 
 ```gerrit review <CHANGE>,<PATCHSET> --message '"Build Unstable <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
 
-Build Not Built Message	
+- Build Not Built Message	
 
 ```gerrit review <CHANGE>,<PATCHSET> --message '"Build not built <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
 
-Trigger on: Patchset Created
+- Trigger on: Patchset Created
 
 **Gerrit Project**
 
 *Type*: Plain
+
 *Pattern*: Awesome-project
 
 **Branches**
 
 *Type*: Path
+
 *Pattern*: **
 
-## Pipeline
+### Pipeline
 
 **Pipeline script**
 
@@ -126,7 +133,7 @@ git push origin HEAD:refs/for/master
 
 Jenkins -> New task -> Name: Gerrit-review -> Type: Free style
 
-## Source Code Management:
+### Source Code Management:
 
 Git:
 
@@ -142,11 +149,11 @@ Repositories:
 
 **Branch Specifier (blank for 'any')**. `*/master`
 
-## Build Triggers: 
+### Build Triggers: 
 
 Gerrit event
 
-## Gerrit Trigger:
+### Gerrit Trigger:
 
 - Choose a Server: Gerrit
 
@@ -199,14 +206,16 @@ Change Merged
 **Gerrit Project**
 
 *Type*: Plain
+
 *Pattern*: Awesome-project
 
 **Branches**
 
 *Type*: Path
+
 *Pattern*: **
 
-## Build
+### Build
 
 **Execute shell**
 
