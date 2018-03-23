@@ -4,7 +4,20 @@
 
 This repo is intended to set up a full configure forge to work with CI Pipelines.
 
-It's based in [OpenFrontier]()
+It's based in [OpenFrontier](https://github.com/openfrontier/).
+
+## How to use this repo
+
+Just clone it:
+
+```
+clone https://github.com/codeurjc/codeurjc-forge 
+cd ~/codeurjc-forgegit
+```
+
+and run 
+
+`./start.sh`
 
 ## Start the Forge
 
@@ -22,7 +35,51 @@ It's based in [OpenFrontier]()
 
 # How to config the environment
 
-TODO
+In order to configure credentials, repos and other environment you must edit `config.rc` file.
+
+```
+|**Variable**|**Description**|
+|------------|---------------|
+|APACHE_NAME|apache container name|
+|APACHE_VOLUME|apache volume name|
+|ARCHIVA_VOLUME|archiva volume name|
+|CI_NETWORK|docker network to attach to|
+|GERRIT_ADMIN_EMAIL|admin email|
+|GERRIT_ADMIN_PWD|admin pass|
+|GERRIT_ADMIN_UID|admin username|
+|GERRIT_DEVELOPER_EMAIL|developer email|
+|GERRIT_DEVELOPER_PASSWORD|developer password|
+|GERRIT_DEVELOPER_USERNAME|developer username|
+|GERRIT_IMAGE_NAME|codeurjc/forge-gerrit|
+|GERRIT_NAME|gerrit container name|
+|GERRIT_PORT|8080|
+|GERRIT_VOLUME|gerrit volume name|
+|HTTPD_LISTENURL|http://*:8080 |
+|INITIAL_PROJECT_DESCRIPTION|Description for initial project|
+|INITIAL_PROJECT_NAME|initial project name|
+|JENKINS_EMAIL|jenkins user email|
+|JENKINS_IMAGE_NAME|codeurjc/forge-jenkins|
+|JENKINS_NAME|jenkins container name|
+|JENKINS_OPTS|jenkins command line options|
+|JENKINS_VOLUME|jenkins volume name|
+|LDAP_ACCOUNTBASE|ldap account base|
+|LDAP_IMAGE_NAME|openfrontier/openldap|
+|LDAP_NAME|ldap container name|
+|PG_GERRIT_NAME|posgress container name|
+|POSTGRES_IMAGE|postgres docker image|
+|SLAPD_DOMAIN|ldap domain|
+|SLAPD_PASSWORD|ldap admin password|
+|TIMEZONE|your time zone|
+
+```
+
+# Description
+
+This repo is intended to be up and ready for developers who don't want to spend time struggling with system administration.
+
+When the forge is up, you can use the default user *developer* to login and start working.
+
+There is also a default project *awesome-project* ready to accept commits.
 
 # How to config CI
 
