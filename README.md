@@ -12,7 +12,7 @@ Just clone it:
 
 ```
 clone https://github.com/codeurjc/codeurjc-forge 
-cd ~/codeurjc-forgegit
+cd ~/codeurjc-forge
 ```
 
 and run 
