@@ -1,4 +1,10 @@
-# Notes
+# URJC Forge
+
+## Introduction
+
+This repo is intended to set up a full configure forge to work with CI Pipelines.
+
+It's based in [OpenFrontier]()
 
 ## Start the Forge
 

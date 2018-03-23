@@ -5,12 +5,12 @@ CI_NETWORK=ci-network
 GERRIT_ADMIN_EMAIL=admin@example.com
 GERRIT_ADMIN_PWD=s3cr3t0
 GERRIT_ADMIN_UID=admin
-GERRIT_IMAGE_NAME=openfrontier/gerrit-ci
+GERRIT_IMAGE_NAME=codeurjc/forge-gerrit
 GERRIT_NAME=gerrit
 GERRIT_PORT=8080
 GERRIT_VOLUME=gerrit-volume
 HTTPD_LISTENURL=http://*:8080
-JENKINS_IMAGE_NAME=openfrontier/jenkins
+JENKINS_IMAGE_NAME=codeurjc/forge-jenkins
 JENKINS_NAME=jenkins
 JENKINS_OPTS=--prefix=/jenkins
 JENKINS_VOLUME=jenkins-volume
