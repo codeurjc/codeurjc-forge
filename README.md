@@ -2,16 +2,17 @@
 
 ## Start the Forge
 
-./start.sh
+`./start.sh`
 
 ## Stop the Forge
 
-./stop.sh 
+`./stop.sh`
 
 ## Remove the Forge 
-CAUTION: Will destroy all data
 
-./remove.sh
+**CAUTION: Will destroy all data**
+
+`./remove.sh`
 
 # How to config the environment
 
@@ -19,22 +20,26 @@ TODO
 
 # How to config CI
 
-1. Grant Non-Interactive Users permission to `createRepo` in Gerrit.
+1. Generate a SSH RSA Key
 
-2. Create repo
+`ssh-keygen -t rsa -f developer.key -q -P ""`
 
-`ssh jenkins@$GERRIT_IP -p 29418 gerrit create-project awesome-project.git --description "'Most better project'"`
+load the key
+
+`ssh-add developer.key`
+
+2. Upload the key to Gerrit Server. Login as user Developer, go to *settings* and paste *developer.key.pub*' content.
 
 3. Clone repo
 
-`git clone ssh://jenkins@${GERRIT_IP}:29418/awesome-project; cd awesome-project`
+`git clone ssh://developer@localhost:29418/awesome-project && cd awesome-project`
 
 4. Configure repo
 
 ```
-git config user.email "jenkins@domain.local"
-git config user.name "Jenkins Server"
-gitdir=$(git rev-parse --git-dir); scp -p -P 29418 jenkins@${GERRIT_IP}:hooks/commit-msg ${gitdir}/hooks/
+git config user.email "dev@example.com"
+git config user.name "gerrit developer"
+gitdir=$(git rev-parse --git-dir); scp -p -P 29418 developer@localhost:hooks/commit-msg ${gitdir}/hooks/
 chmod +x .git/hooks/commit-msg
 ```
 
@@ -50,49 +55,7 @@ New pipeline configuration:
 
 **Choose a Server**: Gerrit
 
-> Under **advance**
-
-### Gerrit Reporting Values:
-
-*Verify*
-Started: 0
-Successful: 1
-Failed: -1
-Unstable: -1
-Not Built: 0
-
-*Code Review*
-Started: 0
-Successful: 1
-Failed: -1
-Unstable: -1
-Not Built: 0
-
-### Custom Build Messages
-
-- Build Start Message	
-
-```gerrit review <CHANGE>,<PATCHSET> --message '"Build Started <BUILDURL> <STARTED_STATS>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
-
-- Build Successful Message
-
-```
-gerrit review <CHANGE>,<PATCHSET> --message '"Build Successful <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>
-```
-
-- Build Failure Message
-
-```gerrit review <CHANGE>,<PATCHSET> --message '"Build Failure <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
-
-- Build Unstable Message
-
-```gerrit review <CHANGE>,<PATCHSET> --message '"Build Unstable <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
-
-- Build Not Built Message	
-
-```gerrit review <CHANGE>,<PATCHSET> --message '"Build not built <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
-
-- Trigger on: Patchset Created
+**Trigger on**: Patchset Created
 
 **Gerrit Project**
 
@@ -113,7 +76,7 @@ gerrit review <CHANGE>,<PATCHSET> --message '"Build Successful <GERRIT_NAME>"' -
 ```
 node {
     stage ('Checkout') {
-      checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '$GERRIT_REFSPEC']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-master', refspec: '+refs/changes/*:refs/changes/*', url: 'ssh://jenkins@10.0.91.72:29418/awesome-project']]]
+      checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '$GERRIT_REFSPEC']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-master', refspec: '+refs/changes/*:refs/changes/*', url: 'ssh://jenkins@gerrit:29418/awesome-project']]]
     }
     stage ('Build') {
       docker.image('maven').inside('-v $HOME/.m2:/root/.m2') {
@@ -135,7 +98,7 @@ git push origin HEAD:refs/for/master
 
 7. Create Jenkins merge job
 
-Jenkins -> New task -> Name: Gerrit-review -> Type: Free style
+Jenkins -> New task -> Name: Gerrit-merge -> Type: Free style
 
 ### Source Code Management:
 
@@ -143,7 +106,7 @@ Git:
 
 Repositories: 
 
-**Repository URL**: ssh://jenkins@10.0.91.72:29418/awesome-project
+**Repository URL**: ssh://jenkins@gerrit:29418/awesome-project
 
 **Credentials**: jenkins (Jenkins Master)
 
@@ -161,51 +124,7 @@ Gerrit event
 
 **Choose a Server**: Gerrit
 
-> Under **Advance**:
-
-### Gerrit Reporting Values:
-
-*Verify*
-Started: 0
-Successful: 1
-Failed: -1
-Unstable: -1
-Not Built: 0
-
-*Code Review*
-Started: 0
-Successful: 1
-Failed: -1
-Unstable: -1
-Not Built: 0
-
-### Custom Build Messages
-
-- Build Start Message	
-
-```gerrit review <CHANGE>,<PATCHSET> --message '"Build Started <BUILDURL> <STARTED_STATS>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
-
-- Build Successful Message
-
-```
-gerrit review <CHANGE>,<PATCHSET> --message '"Build Successful <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>
-```
-
-- Build Failure Message
-
-```gerrit review <CHANGE>,<PATCHSET> --message '"Build Failure <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
-
-- Build Unstable Message
-
-```gerrit review <CHANGE>,<PATCHSET> --message '"Build Unstable <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
-
-- Build Not Built Message	
-
-```gerrit review <CHANGE>,<PATCHSET> --message '"Build not built <GERRIT_NAME>"' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>```
-
-**Trigger on**:
-
-Change Merged
+**Trigger on**: Change Merged
 
 **Gerrit Project**
 
