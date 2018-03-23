@@ -37,7 +37,6 @@ and run
 
 In order to configure credentials, repos and other environment you must edit `config.rc` file.
 
-```
 |**Variable**|**Description**|
 |------------|---------------|
 |APACHE_NAME|apache container name|
@@ -54,7 +53,7 @@ In order to configure credentials, repos and other environment you must edit `co
 |GERRIT_NAME|gerrit container name|
 |GERRIT_PORT|8080|
 |GERRIT_VOLUME|gerrit volume name|
-|HTTPD_LISTENURL|http://*:8080 |
+|HTTPD_LISTENURL|http://\*:8080 |
 |INITIAL_PROJECT_DESCRIPTION|Description for initial project|
 |INITIAL_PROJECT_NAME|initial project name|
 |JENKINS_EMAIL|jenkins user email|
@@ -70,8 +69,6 @@ In order to configure credentials, repos and other environment you must edit `co
 |SLAPD_DOMAIN|ldap domain|
 |SLAPD_PASSWORD|ldap admin password|
 |TIMEZONE|your time zone|
-
-```
 
 # Description
 
