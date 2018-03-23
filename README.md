@@ -206,7 +206,7 @@ Gerrit event
 TARGET_FOLDER=/usr/share/apache
 PROJECT_NAME=$(echo $GIT_URL | cut -d"/" -f4)
 
-docker run --rm --volumes-from jenkins -w ${WORKSPACE} nordri/nordri-dev-tools mvn -DskipTests=true install compile package
+docker run --rm --volumes-from jenkins -w ${WORKSPACE} maven mvn -DskipTests=true install compile package
 
 mkdir -p $TARGET_FOLDER/$PROJECT_NAME
 cp ./target/tema1_2-ejem1-0.0.1-SNAPSHOT.jar $TARGET_FOLDER/$PROJECT_NAME
