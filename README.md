@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This repo is intended to set up a full configure forge to work with CI Pipelines.
+This repo is intended to set up a full configured CI forge to work with CI Pipelines.
 
-It's based in [OpenFrontier](https://github.com/openfrontier/).
+It's based in [OpenFrontier](https://github.com/openfrontier/) work.
 
 ## How to use this repo
 
@@ -12,22 +12,24 @@ Just clone it:
 
 ```
 clone https://github.com/codeurjc/codeurjc-forge 
-cd ~/codeurjc-forge
+cd codeurjc-forge
 ```
 
 and run 
 
 `./start.sh`
 
-## Start the Forge
+## Commands
+
+# Start the Forge
 
 `./start.sh`
 
-## Stop the Forge
+# Stop the Forge
 
 `./stop.sh`
 
-## Remove the Forge 
+# Remove the Forge 
 
 **CAUTION: Will destroy all data**
 
@@ -72,7 +74,7 @@ In order to configure credentials, repos and other environment you must edit `co
 
 # Description
 
-This repo is intended to be up and ready for developers who don't want to spend time struggling with system administration.
+This repo is intended to help developers who don't want to spend time struggling with system administration.
 
 When the forge is up, you can use the default user *developer* to login and start working.
 
