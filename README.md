@@ -4,7 +4,7 @@
 
 This repo is intended to set up a full configured CI forge to work with CI Pipelines.
 
-It's based in [OpenFrontier](https://github.com/openfrontier/) work.
+It's based on [OpenFrontier](https://github.com/openfrontier/) work.
 
 ## How to use this repo
 
