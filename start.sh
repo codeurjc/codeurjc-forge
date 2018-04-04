@@ -3,6 +3,11 @@ set -e
 
 . config.rc
 
+# Check if $CI_NETWORK already exists
+if [ -z $(docker network ls | grep $CI_NETWORK) ]; then
+  docker network create $CI_NETWORK
+fi
+
 # Launching LDAP
 ./createOpenLDAP.sh
 
