@@ -55,7 +55,10 @@ RUN /usr/local/bin/install-plugins.sh \
   workflow-basic-steps \
   pipeline-model-definition \
   workflow-aggregator \
-  swarm 
+  swarm \
+  ws-cleanup \
+  config-file-provider \
+  custom-tools-plugin
 
 # Add groovy setup config
 COPY init.groovy.d/ /usr/share/jenkins/ref/init.groovy.d/
