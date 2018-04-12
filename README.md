@@ -218,3 +218,39 @@ cp ./target/tema1_2-ejem1-0.0.1-SNAPSHOT.jar $TARGET_FOLDER/$PROJECT_NAME
 
 9. Go to localhost to pick up the artifact(s).
 
+## Creating a new user in LDAP
+
+1. Start a new session in the container
+
+`docker exec -ti openldap bash`
+
+2. Create new LDIF manifest
+
+```# cat >monitor.ldif<<EOF
+> dn: uid=monitor,ou=accounts,dc=example,dc=com
+> objectClass: posixAccount
+> objectClass: inetOrgPerson
+> objectClass: organizationalPerson
+> objectClass: person
+> homeDirectory: /home/monitor
+> loginShell: /bin/false
+> gidNumber: 10000
+> uid: monitor
+> cn: monitor pro
+> displayName: monitor pro
+> uidNumber: 10002
+> sn: users
+> givenName: monitor
+> mail: monitor@example.com
+> EOF
+```
+
+3. Register the entity
+
+`ldapadd -f ./monitor.ldif -x -D "cn=admin,dc=example,dc=com" -w secret`
+
+4. Exit the container, just pressing _Ctrl+D_
+
+5. Create a password for the user
+
+`docker exec openldap ldappasswd -x -D "cn=admin,dc=example,dc=com" -w secret -s s3cr3t0 "uid=monitor,ou=accounts,dc=example,dc=com"`
