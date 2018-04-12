@@ -21,13 +21,17 @@ and run
 
 ## Commands
 
-# Start the Forge
+# Start the Forge from scratch
 
 `./start.sh`
 
 # Stop the Forge
 
 `./stop.sh`
+
+# Start again the containers after stopped
+
+`./resume.sh`
 
 # Remove the Forge 
 
