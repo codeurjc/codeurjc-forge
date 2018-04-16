@@ -3,14 +3,14 @@ set -e
 
 . config.rc
 
-docker volume create --name ${ARCHIVA_VOLUME}
+docker volume create --name ${FORGE_PREFIX}-${ARCHIVA_VOLUME}
 
 docker run \
---name archiva \
+--name ${FORGE_PREFIX}-${ARCHIVA_NAME} \
 --net ${CI_NETWORK} \
---volume ${ARCHIVA_VOLUME}:/archiva-data \
+--volume ${FORGE_PREFIX}-${ARCHIVA_VOLUME}:/archiva-data \
 --publish ${ARCHIVA_PORT}:8080 \
---detach xetusoss/archiva
+--detach ${ARCHIVA_IMAGE_NAME}
 
 until curl --location --output /dev/null --silent --write-out "%{http_code}\\n" "http://localhost:${ARCHIVA_PORT}/" | grep 200 &>/dev/null
 do

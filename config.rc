@@ -1,3 +1,6 @@
+# Prefix to label the stuff
+FORGE_PREFIX=codeurjc-forge
+
 # Containers name
 APACHE_NAME=apache
 GERRIT_NAME=gerrit
@@ -5,12 +8,15 @@ PG_GERRIT_NAME=pg-gerrit
 LDAP_NAME=openldap
 PHPLDAPADMIN_NAME=phpldapadmin
 JENKINS_NAME=jenkins
+ARCHIVA_NAME=archiva
+OPENLDAP_SSP_NAME=openldap-ssp
 
 # Volume name
 APACHE_VOLUME=apache-volume
 ARCHIVA_VOLUME=archiva-volume
 GERRIT_VOLUME=gerrit-volume
 JENKINS_VOLUME=jenkins-volume
+PG_GERRIT_VOLUME=pg-gerrit-volume
 
 # Network name
 CI_NETWORK=ci-network
@@ -27,7 +33,10 @@ GERRIT_DEVELOPER_USERNAME=developer
 GERRIT_IMAGE_NAME=codeurjc/forge-gerrit
 JENKINS_IMAGE_NAME=codeurjc/forge-jenkins
 LDAP_IMAGE_NAME=openfrontier/openldap
-POSTGRES_IMAGE=postgres
+POSTGRES_IMAGE_NAME=postgres
+HTTP_IMAGE_NAME=httpd
+ARCHIVA_IMAGE_NAME=xetusoss/archiva
+OPENLDAP_SSP_IMAGE_NAME=openfrontier/ldap-ssp
 
 # Containers port
 GERRIT_PORT=8080

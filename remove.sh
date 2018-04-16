@@ -3,26 +3,12 @@ set -e
 
 . config.rc
 
-CONTAINERS=(
-  $PHPLDAPADMIN_NAME
-  archiva
-  jenkins
-  gerrit
-  pg-gerrit
-  apache
-  openldap
-  openldap-ssp
-)
+for container in $(docker ps -a --filter "name=${FORGE_PREFIX}*" --format "{{ .Names }}")
+do
+  docker rm -f $container
+done
 
-VOLUMES=(
-  archiva-volume
-  gerrit-volume
-  jenkins-volume
-  openldap-etc-volume
-  openldap-repo-volume
-  apache-volume
-  pg-gerrit-volume
-)
-
-docker rm -f ${CONTAINERS[@]}
-docker volume rm ${VOLUMES[@]}
+for volume in $(docker volume ls --filter "name=${FORGE_PREFIX}*" --format "{{ .Name }}")
+do
+  docker volume rm $volume
+done

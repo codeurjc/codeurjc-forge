@@ -3,14 +3,7 @@ set -e
 
 . config.rc
 
-CONTAINERS=(
-  openldap
-  pg-gerrit
-  gerrit
-  jenkins
-  apache
-  archiva
-  $PHPLDAPADMIN_NAME
-)
-
-docker start ${CONTAINERS[@]}
+for container in $(docker ps -a --filter "name=${FORGE_PREFIX}*" --format "{{ .Names }}")
+do
+  docker start $container
+done

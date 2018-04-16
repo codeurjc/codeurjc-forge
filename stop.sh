@@ -3,14 +3,7 @@ set -e
 
 . config.rc
 
-CONTAINERS=(
-	$PHPLDAPADMIN_NAME
-  archiva
-  jenkins
-  gerrit
-  pg-gerrit
-  apache
-  openldap
-)
-
-docker stop ${CONTAINERS[@]}
+for container in $(docker ps -a --filter "name=${FORGE_PREFIX}*" --format "{{ .Names }}")
+do
+  docker stop $container
+done
