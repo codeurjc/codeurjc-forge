@@ -40,13 +40,17 @@ done
 # Launching phpLDAPadmin
 ./createphpLDAPAdmin.sh
 
+# Launching Self Service Password
+./createLDAPSSP.sh
+
 echo "##################"
 echo "###    Done    ###"
 echo "##################"
 echo ""
 echo "- URLs:"
 echo ""
-echo "Gerrit       -> ${GERRIT_WEBURL}:${GERRIT_PORT}"
-echo "Jenkins      -> http://${PUBLIC_IP}:9090/jenkins"
-echo "Archiva      -> http://${PUBLIC_IP}:7070"
-echo "phpLDAPadmin -> http://${PUBLIC_IP}:9292/phpldapadmin"
+echo "Gerrit                -> ${GERRIT_WEBURL}:${GERRIT_PORT}"
+echo "Jenkins               -> http://${PUBLIC_IP}:9090/jenkins"
+echo "Archiva               -> http://${PUBLIC_IP}:7070"
+echo "phpLDAPadmin          -> http://${PUBLIC_IP}:9292/phpldapadmin"
+echo "Self Service Password -> http://${PUBLIC_IP}:9191/ssp"
