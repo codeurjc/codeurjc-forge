@@ -28,3 +28,4 @@ POSTGRES_IMAGE=postgres
 SLAPD_DOMAIN=example.com
 SLAPD_PASSWORD=secret 
 TIMEZONE="Europe/Madrid"
+PHPLDAPADMIN_NAME=phpldapadmin

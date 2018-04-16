@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 set -e
 
 . config.rc
@@ -37,12 +37,16 @@ done
 # Launching ARCHIVA
 ./createArchiva.sh
 
+# Launching phpLDAPadmin
+./createphpLDAPAdmin.sh
+
 echo "##################"
 echo "###    Done    ###"
 echo "##################"
 echo ""
 echo "- URLs:"
 echo ""
-echo "Gerrit  -> ${GERRIT_WEBURL}:${GERRIT_PORT}"
-echo "Jenkins -> http://${PUBLIC_IP}:9090/jenkins"
-echo "Archiva -> http://${PUBLIC_IP}:7070"
+echo "Gerrit       -> ${GERRIT_WEBURL}:${GERRIT_PORT}"
+echo "Jenkins      -> http://${PUBLIC_IP}:9090/jenkins"
+echo "Archiva      -> http://${PUBLIC_IP}:7070"
+echo "phpLDAPadmin -> http://${PUBLIC_IP}:9292/phpldapadmin"
