@@ -41,40 +41,9 @@ and run
 
 # How to config the environment
 
-In order to configure credentials, repos and other environment you must edit `config.rc` file.
+In order to configure credentials, repos and other environment things you must edit `config.rc` file.
 
-|**Variable**|**Description**|
-|------------|---------------|
-|APACHE_NAME|apache container name|
-|APACHE_VOLUME|apache volume name|
-|ARCHIVA_VOLUME|archiva volume name|
-|CI_NETWORK|docker network to attach to|
-|GERRIT_ADMIN_EMAIL|admin email|
-|GERRIT_ADMIN_PWD|admin pass|
-|GERRIT_ADMIN_UID|admin username|
-|GERRIT_DEVELOPER_EMAIL|developer email|
-|GERRIT_DEVELOPER_PASSWORD|developer password|
-|GERRIT_DEVELOPER_USERNAME|developer username|
-|GERRIT_IMAGE_NAME|codeurjc/forge-gerrit|
-|GERRIT_NAME|gerrit container name|
-|GERRIT_PORT|8080|
-|GERRIT_VOLUME|gerrit volume name|
-|HTTPD_LISTENURL|http://\*:8080 |
-|INITIAL_PROJECT_DESCRIPTION|Description for initial project|
-|INITIAL_PROJECT_NAME|initial project name|
-|JENKINS_EMAIL|jenkins user email|
-|JENKINS_IMAGE_NAME|codeurjc/forge-jenkins|
-|JENKINS_NAME|jenkins container name|
-|JENKINS_OPTS|jenkins command line options|
-|JENKINS_VOLUME|jenkins volume name|
-|LDAP_ACCOUNTBASE|ldap account base|
-|LDAP_IMAGE_NAME|openfrontier/openldap|
-|LDAP_NAME|ldap container name|
-|PG_GERRIT_NAME|posgress container name|
-|POSTGRES_IMAGE|postgres docker image|
-|SLAPD_DOMAIN|ldap domain|
-|SLAPD_PASSWORD|ldap admin password|
-|TIMEZONE|your time zone|
+The config is divided in blocks.
 
 # Description
 
@@ -224,37 +193,4 @@ cp ./target/tema1_2-ejem1-0.0.1-SNAPSHOT.jar $TARGET_FOLDER/$PROJECT_NAME
 
 ## Creating a new user in LDAP
 
-1. Start a new session in the container
-
-`docker exec -ti openldap bash`
-
-2. Create new LDIF manifest
-
-```# cat >monitor.ldif<<EOF
-> dn: uid=monitor,ou=accounts,dc=example,dc=com
-> objectClass: posixAccount
-> objectClass: inetOrgPerson
-> objectClass: organizationalPerson
-> objectClass: person
-> homeDirectory: /home/monitor
-> loginShell: /bin/false
-> gidNumber: 10000
-> uid: monitor
-> cn: monitor pro
-> displayName: monitor pro
-> uidNumber: 10002
-> sn: users
-> givenName: monitor
-> mail: monitor@example.com
-> EOF
-```
-
-3. Register the entity
-
-`ldapadd -f ./monitor.ldif -x -D "cn=admin,dc=example,dc=com" -w secret`
-
-4. Exit the container, just pressing _Ctrl+D_
-
-5. Create a password for the user
-
-`docker exec openldap ldappasswd -x -D "cn=admin,dc=example,dc=com" -w secret -s s3cr3t0 "uid=monitor,ou=accounts,dc=example,dc=com"`
+We provided **phpLDAPAdmin** and **Self Service Password**. The first one is for LDAP administration and the second one is for the user to change their password by theirselves.
