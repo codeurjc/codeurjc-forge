@@ -194,3 +194,11 @@ cp ./target/tema1_2-ejem1-0.0.1-SNAPSHOT.jar $TARGET_FOLDER/$PROJECT_NAME
 ## Creating a new user in LDAP
 
 We provided **phpLDAPAdmin** and **Self Service Password**. The first one is for LDAP administration and the second one is for the user to change their password by theirselves.
+
+## Refs
+
+https://hub.docker.com/u/openfrontier/
+https://github.com/openfrontier
+https://medium.com/@sanjogkumardash/code-review-with-continuous-integration-setup-gerrit-jenkins-on-ubuntu-14-04-amazon-36286f594bf5
+https://gerrit-review.googlesource.com/Documentation/intro-gerrit-walkthrough.html#_making_the_change
+https://github.com/osixia/docker-phpLDAPadmin
