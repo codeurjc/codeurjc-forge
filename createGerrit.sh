@@ -31,7 +31,7 @@ docker run \
 --name ${GERRIT_NAME} \
 --net ${CI_NETWORK} \
 -p 29418:29418 \
--p 8080:8080 \
+-p ${GERRIT_PORT}:8080 \
 --volume ${GERRIT_VOLUME}:/var/gerrit/review_site \
 -e WEBURL=${GERRIT_WEBURL}:${GERRIT_PORT} \
 -e HTTPD_LISTENURL=${HTTPD_LISTENURL} \

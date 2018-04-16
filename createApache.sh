@@ -13,7 +13,7 @@ docker run  \
   --name ${APACHE_NAME} \
   --detach \
   --net ${CI_NETWORK} \
-  -p 80:80 \
+  -p ${HTTPD_PORT}:80 \
   -v ${PWD}/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf \
   -v ${PWD}/httpd/vhost.conf:/usr/local/apache2/conf/vhost.conf \
   -v ${APACHE_VOLUME}:/usr/local/apache2/www \

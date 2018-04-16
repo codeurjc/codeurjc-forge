@@ -11,6 +11,7 @@ CONTAINERS=(
   pg-gerrit
   apache
   openldap
+  openldap-ssp
 )
 
 VOLUMES=(

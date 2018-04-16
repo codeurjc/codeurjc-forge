@@ -17,7 +17,7 @@ export PUBLIC_IP=$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f8)
 export GERRIT_WEBURL=http://${PUBLIC_IP}
 
 ./createGerrit.sh 
-until curl --location --output /dev/null --silent --write-out "%{http_code}\\n" "http://localhost:8080/" | grep 200 &>/dev/null
+until curl --location --output /dev/null --silent --write-out "%{http_code}\\n" "http://localhost:${GERRIT_PORT}/" | grep 200 &>/dev/null
 do
   echo "Waiting for Gerrit"
   sleep 1
@@ -25,7 +25,7 @@ done
 
 # Launching JENKINS
 ./createJenkins.sh
-until curl --location --output /dev/null --silent --write-out "%{http_code}\\n" "http://localhost:9090/jenkins" | grep 200 &>/dev/null
+until curl --location --output /dev/null --silent --write-out "%{http_code}\\n" "http://localhost:${JENKINS_PORT}/jenkins" | grep 200 &>/dev/null
 do
   echo "Waiting for Jenkins"
   sleep 1
@@ -50,7 +50,7 @@ echo ""
 echo "- URLs:"
 echo ""
 echo "Gerrit                -> ${GERRIT_WEBURL}:${GERRIT_PORT}"
-echo "Jenkins               -> http://${PUBLIC_IP}:9090/jenkins"
-echo "Archiva               -> http://${PUBLIC_IP}:7070"
-echo "phpLDAPadmin          -> http://${PUBLIC_IP}:9292/phpldapadmin"
-echo "Self Service Password -> http://${PUBLIC_IP}:9191/ssp"
+echo "Jenkins               -> http://${PUBLIC_IP}:${JENKINS_PORT}/jenkins"
+echo "Archiva               -> http://${PUBLIC_IP}:${ARCHIVA_PORT}"
+echo "phpLDAPadmin          -> http://${PUBLIC_IP}:${PHPLDAPADMIN_PORT}/phpldapadmin"
+echo "Self Service Password -> http://${PUBLIC_IP}:${LDAPSSP_PORT}/ssp"

@@ -9,10 +9,10 @@ docker run \
 --name archiva \
 --net ${CI_NETWORK} \
 --volume ${ARCHIVA_VOLUME}:/archiva-data \
---publish 7070:8080 \
+--publish ${ARCHIVA_PORT}:8080 \
 --detach xetusoss/archiva
 
-until curl --location --output /dev/null --silent --write-out "%{http_code}\\n" "http://localhost:7070/" | grep 200 &>/dev/null
+until curl --location --output /dev/null --silent --write-out "%{http_code}\\n" "http://localhost:${ARCHIVA_PORT}/" | grep 200 &>/dev/null
 do
   echo "Waiting for Archiva"
   sleep 1
@@ -35,9 +35,9 @@ generate_post_data()
 EOF
 }
 
-curl 'http://localhost:7070/restServices/redbackServices/userService/createAdminUser' \
--H 'Origin: http://localhost:7070' \
--H 'Content-Type: application/json' \
--H 'Referer: http://localhost:7070/' \
--H 'Connection: keep-alive' \
+curl "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/userService/createAdminUser" \
+-H "Origin: http://localhost:${ARCHIVA_PORT}" \
+-H "Content-Type: application/json" \
+-H "Referer: http://localhost:${ARCHIVA_PORT}/" \
+-H "Connection: keep-alive" \
 --data "$(generate_post_data)" --compressed

@@ -1,31 +1,53 @@
+# Containers name
 APACHE_NAME=apache
+GERRIT_NAME=gerrit
+PG_GERRIT_NAME=pg-gerrit
+LDAP_NAME=openldap
+PHPLDAPADMIN_NAME=phpldapadmin
+JENKINS_NAME=jenkins
+
+# Volume name
 APACHE_VOLUME=apache-volume
 ARCHIVA_VOLUME=archiva-volume
+GERRIT_VOLUME=gerrit-volume
+JENKINS_VOLUME=jenkins-volume
+
+# Network name
 CI_NETWORK=ci-network
+
+# Initial credentials
 GERRIT_ADMIN_EMAIL=admin@example.com
 GERRIT_ADMIN_PWD=s3cr3t0
 GERRIT_ADMIN_UID=admin
 GERRIT_DEVELOPER_EMAIL=dev@example.com
 GERRIT_DEVELOPER_PASSWORD=d3v3l0p3r
 GERRIT_DEVELOPER_USERNAME=developer
+
+# Docker images names
 GERRIT_IMAGE_NAME=codeurjc/forge-gerrit
-GERRIT_NAME=gerrit
+JENKINS_IMAGE_NAME=codeurjc/forge-jenkins
+LDAP_IMAGE_NAME=openfrontier/openldap
+POSTGRES_IMAGE=postgres
+
+# Containers port
 GERRIT_PORT=8080
-GERRIT_VOLUME=gerrit-volume
-HTTPD_LISTENURL=http://*:8080
+JENKINS_PORT=8181
+LDAPSSP_PORT=8282
+PHPLDAPADMIN_PORT=8383
+ARCHIVA_PORT=8484
+HTTPD_PORT=8585
+
+# Initial project
 INITIAL_PROJECT_DESCRIPTION="Super project"
 INITIAL_PROJECT_NAME=awesome-project
 JENKINS_EMAIL=jenkins@domain.local
-JENKINS_IMAGE_NAME=codeurjc/forge-jenkins
-JENKINS_NAME=jenkins
-JENKINS_OPTS=--prefix=/jenkins
-JENKINS_VOLUME=jenkins-volume
+
+# Ldap configuration
 LDAP_ACCOUNTBASE="dc=example,dc=com"
-LDAP_IMAGE_NAME=openfrontier/openldap
-LDAP_NAME=openldap
-PG_GERRIT_NAME=pg-gerrit
-POSTGRES_IMAGE=postgres
 SLAPD_DOMAIN=example.com
 SLAPD_PASSWORD=secret 
+
+# Misc
 TIMEZONE="Europe/Madrid"
-PHPLDAPADMIN_NAME=phpldapadmin
+HTTPD_LISTENURL=http://*:${GERRIT_PORT}
+JENKINS_OPTS=--prefix=/jenkins

@@ -11,7 +11,7 @@ docker run \
 --name ${JENKINS_NAME} \
 --net ${CI_NETWORK} \
 -p 50000:50000 \
--p 9090:8080 \
+-p ${JENKINS_PORT}:${GERRIT_PORT} \
 --volume ${JENKINS_VOLUME}:/var/jenkins_home \
 --volume /var/run/docker.sock:/var/run/docker.sock \
 --volume ${APACHE_VOLUME}:/usr/share/apache \
