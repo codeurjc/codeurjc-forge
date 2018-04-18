@@ -11,7 +11,7 @@ It's based on [OpenFrontier](https://github.com/openfrontier/) work.
 Just clone it:
 
 ```
-clone https://github.com/codeurjc/codeurjc-forge 
+git clone https://github.com/codeurjc/codeurjc-forge 
 cd codeurjc-forge
 ```
 
