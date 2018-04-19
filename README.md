@@ -111,7 +111,7 @@ New pipeline configuration:
 ```
 node {
     stage ('Checkout') {
-      checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '$GERRIT_REFSPEC']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-master', refspec: '+refs/changes/*:refs/changes/*', url: 'ssh://jenkins@gerrit:29418/awesome-project']]]
+      checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '$GERRIT_REFSPEC']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-master', refspec: '+refs/changes/*:refs/changes/*', url: 'ssh://jenkins@codeurjc-forge-gerrit:29418/awesome-project']]]
     }
     stage ('Build') {
       docker.image('maven').inside('-v $HOME/.m2:/root/.m2') {
