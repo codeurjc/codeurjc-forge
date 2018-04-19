@@ -1,11 +1,15 @@
 #!/bin/bash -x
-set -e
+set -eu
 
-HOST_NAME=${HOST_NAME:-$1}
-GERRIT_WEBURL=${GERRIT_WEBURL:-$2}
-GERRIT_ADMIN_UID=${GERRIT_ADMIN_UID:-$3}
-GERRIT_ADMIN_PWD=${GERRIT_ADMIN_PWD:-$4}
-GERRIT_ADMIN_EMAIL=${GERRIT_ADMIN_EMAIL:-$5}
+echo "##################"
+echo "## Gerrit Setup ##"
+echo "##################"
+
+HOST_NAME=localhost
+GERRIT_WEBURL=localhost:8080
+GERRIT_ADMIN_UID=${INITIAL_ADMIN_USER}
+GERRIT_ADMIN_PWD=${INITIAL_ADMIN_PASSWORD}
+GERRIT_ADMIN_EMAIL=${INITIAL_ADMIN_EMAIL}
 SSH_KEY_PATH=${SSH_KEY_PATH:-~/.ssh/id_rsa}
 CHECKOUT_DIR=./git
 
@@ -51,7 +55,7 @@ git commit -a -m "Added label - Verified"
 
 #Change global access right
 ##Remove anonymous access right.
-git config -f project.config --unset access.refs/*.read "group Anonymous Users"
+#git config -f project.config --unset access.refs/*.read "group Anonymous Users"
 ##add Jenkins access and verify right
 git config -f project.config --add access.refs/heads/*.read "group Non-Interactive Users"
 git config -f project.config --add access.refs/tags/*.read "group Non-Interactive Users"

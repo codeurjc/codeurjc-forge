@@ -57,3 +57,27 @@ if [ "$?" == "0" ]; then
 else
 	echo "Project creation failed"
 fi
+
+# Adjusting permissions (READ and PUSH)
+
+# eval $(ssh-agent)
+# ssh-add ~/.ssh/id_rsa
+
+# mkdir ~/git
+# git init ~/git 
+# cd ~/git
+
+# git config user.name  $username
+# git config user.email admin@${HOST_NAME}
+# git remote add origin ssh://$username@${HOST_NAME}:29418/${initial_project_name}
+
+# git fetch -q origin refs/meta/config:refs/remotes/origin/meta/config
+# git checkout meta/config
+
+# git config -f project.config --add access.refs/heads/*.read "group Registered Users"
+# git config -f project.config --add access.refs/heads/*.push "group Registered Users"
+
+# git commit -a -m "Adjusting permissions"
+# git push origin meta/config:meta/config
+
+# rm -rf ~/git
