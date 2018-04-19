@@ -18,11 +18,11 @@ def gerrit_ssh_key_password = env['GERRIT_SSH_KEY_PASSWORD'] ?: null
 def gerrit_initial_admin_user = env['GERRIT_INITIAL_ADMIN_USER'] ?: "gerrit"
 def gerrit_initial_admin_password = env['GERRIT_INITIAL_ADMIN_PASSWORD'] ?: "gerrit"
 
-def gerritVerifiedCmdBuildSuccessful = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build Successful <GERRIT_NAME>"\' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>'
-def gerritVerifiedCmdBuildUnstable = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build Unstable <GERRIT_NAME>"\' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>'
-def gerritVerifiedCmdBuildFailed = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build Failure <GERRIT_NAME>"\' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>'
-def gerritVerifiedCmdBuildStarted = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build Started <BUILDURL> <STARTED_STATS>"\' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>'
-def gerritVerifiedCmdBuildNotBuilt = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build not built <GERRIT_NAME>"\' --label "verified=<VERIFIED>" --code-review <CODE_REVIEW>'
+def gerritVerifiedCmdBuildSuccessful = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build Successful <GERRIT_NAME>"\' --verified <VERIFIED> '
+def gerritVerifiedCmdBuildUnstable = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build Unstable <GERRIT_NAME>"\' --verified <VERIFIED> '
+def gerritVerifiedCmdBuildFailed = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build Failure <GERRIT_NAME>"\' --verified <VERIFIED> '
+def gerritVerifiedCmdBuildStarted = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build Started <BUILDURL> <STARTED_STATS>"\' --verified <VERIFIED> '
+def gerritVerifiedCmdBuildNotBuilt = 'gerrit review <CHANGE>,<PATCHSET> --message \'"Build not built <GERRIT_NAME>"\' --verified <VERIFIED> '
 
 // Constants
 def instance = Jenkins.getInstance()
@@ -83,6 +83,7 @@ Thread.start {
 
         gerrit_server.setConfig(gerrit_server_config)
         gerrit_trigger_plugin.addServer(gerrit_server)
+        gerrit_trigger_plugin.save()
         gerrit_server.start()
         gerrit_server.startConnection()
     }
