@@ -139,8 +139,9 @@ node {
 6. Push the code to the repo
 
 ```
-git add ...
-git commit -a -m MESSAGE
+cp code-example/* awesome-project/ && cd awesome-example
+git add .
+git commit -a -m "first commit"
 git push origin HEAD:refs/for/master
 ```
 
