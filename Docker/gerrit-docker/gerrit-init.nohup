@@ -10,7 +10,7 @@ echo "######################"
 
 gerrit-create-user.sh -t ldap -u ${INITIAL_ADMIN_USER} -p ${INITIAL_ADMIN_PASSWORD}
 gerrit-create-user.sh -t ldap -u ${GERRIT_DEVELOPER_USERNAME} -p ${GERRIT_DEVELOPER_PASSWORD} 
-gerrit-create-user.sh -t internal -A ${INITIAL_ADMIN_USER} -P ${INITIAL_ADMIN_PASSWORD} -u jenkins -f "Jenkins Server" -e ${JENKINS_EMAIL}
+gerrit-create-user.sh -t internal -A ${INITIAL_ADMIN_USER} -P ${INITIAL_ADMIN_PASSWORD} -u jenkins -f "Jenkins Server" -e "jenkins@domain.local"
 
 #/add_user_to_group.sh -A ${GERRIT_USERNAME} -P ${GERRIT_PASSWORD} -u ${JENKINS_USERNAME} -g Administrators
 #/add_user_to_group.sh -A ${GERRIT_USERNAME} -P ${GERRIT_PASSWORD} -u ${INITIAL_ADMIN_USER} -g "Administrators"
