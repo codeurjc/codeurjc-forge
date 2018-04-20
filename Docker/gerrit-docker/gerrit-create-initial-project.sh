@@ -8,11 +8,11 @@ echo "#####################################"
 # Usage
 usage() {
     echo "Usage:"
-    echo "    ${0} -A <username> -P <password> -p <initial_project_name> -d <initial_project_description>"
+    echo "    ${0} -A <username> -P <password> -p <initial_project_name> -d <initial_project_description> -g <initial_group> -e <git_email>"
     exit 1
 }
 
-while getopts "A:P:p:d:" opt; do
+while getopts "A:P:p:d:g:e:" opt; do
   case $opt in
     A)
       username=${OPTARG}
@@ -26,6 +26,12 @@ while getopts "A:P:p:d:" opt; do
     d)
       initial_project_description="${OPTARG}"
       ;;
+    g)
+      initial_group="${OPTARG}"
+      ;;
+    e)
+      git_email=${OPTARG}
+      ;;
     *)
       echo "Invalid parameter(s) or option(s)."
       usage
@@ -33,7 +39,7 @@ while getopts "A:P:p:d:" opt; do
   esac
 done
 
-if [ -z "${username}" ] || [ -z "${password}" ] || [ -z "${initial_project_name}" ] || [ -z "${initial_project_description}" ]; then
+if [ -z "${username}" ] || [ -z "${password}" ] || [ -z "${initial_project_name}" ] || [ -z "${initial_project_description}" ] || [ -z "${initial_group}" ]; then
     echo "Parameters missing"
     usage
 fi
@@ -60,24 +66,35 @@ fi
 
 # Adjusting permissions (READ and PUSH)
 
-# eval $(ssh-agent)
-# ssh-add ~/.ssh/id_rsa
+GROUP_UUID=$(curl --silent --user "${username}:${password}" "http://localhost:8080/a/groups/${initial_group}" | grep id | awk -F"\"" '{ print $4 }' | tail -n 1)
 
-# mkdir ~/git
-# git init ~/git 
-# cd ~/git
+eval $(ssh-agent)
+ssh-add ~/.ssh/id_rsa
 
-# git config user.name  $username
-# git config user.email admin@${HOST_NAME}
-# git remote add origin ssh://$username@${HOST_NAME}:29418/${initial_project_name}
+mkdir ~/git
+git init ~/git 
+cd ~/git
 
-# git fetch -q origin refs/meta/config:refs/remotes/origin/meta/config
-# git checkout meta/config
+git config user.name  $username
+git config user.email $git_email
+git remote add origin ssh://$username@localhost:29418/${initial_project_name}
 
-# git config -f project.config --add access.refs/heads/*.read "group Registered Users"
-# git config -f project.config --add access.refs/heads/*.push "group Registered Users"
+git fetch -q origin refs/meta/config:refs/remotes/origin/meta/config
+git checkout meta/config
 
-# git commit -a -m "Adjusting permissions"
-# git push origin meta/config:meta/config
+TAB="$(printf '\t')"
+cat >groups<<EOF
+# UUID${TAB}Group Name
+#
+${GROUP_UUID}${TAB}${initial_group}
+EOF
+
+git add groups 
+
+git config -f project.config --add access.refs/heads/*.read "group ${initial_group}"
+git config -f project.config --add access.refs/heads/*.push "group ${initial_group}"
+
+git commit -a -m "Adjusting permissions"
+git push origin meta/config:meta/config
 
 # rm -rf ~/git

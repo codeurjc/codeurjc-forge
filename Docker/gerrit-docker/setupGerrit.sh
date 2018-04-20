@@ -55,7 +55,7 @@ git commit -a -m "Added label - Verified"
 
 #Change global access right
 ##Remove anonymous access right.
-#git config -f project.config --unset access.refs/*.read "group Anonymous Users"
+git config -f project.config --unset access.refs/*.read "group Anonymous Users"
 ##add Jenkins access and verify right
 git config -f project.config --add access.refs/heads/*.read "group Non-Interactive Users"
 git config -f project.config --add access.refs/tags/*.read "group Non-Interactive Users"
