@@ -6,6 +6,23 @@ This repo is intended to set up a full configured CI forge to work with CI Pipel
 
 It's based on [OpenFrontier](https://github.com/openfrontier/) work.
 
+## Services included
+
+- Jenkins CI
+- Gerrit Code Review
+- Apache HTTPD server
+- OpenLDAP
+- php LDAP Admin
+- LDAP Self Service Password
+
+## Description
+
+This repo is intended to help developers who don't want to spend time struggling with system administration.
+
+When the forge is up, you can use the default user *developer* and pass *d3v3l0p3r* to login in every service and start working.
+
+There is also a default project *awesome-project* ready to accept commits.
+
 ## How to use this repo
 
 Just clone it:
@@ -15,25 +32,29 @@ git clone https://github.com/codeurjc/codeurjc-forge
 cd codeurjc-forge
 ```
 
-and run 
+Check out the default config in `config.rc` so you can adjust on your needs.
+
+And run 
 
 `./start.sh`
+
+At the end, you'll find the URLs to access the services.
 
 ## Commands
 
-# Start the Forge from scratch
+### Start the Forge from scratch
 
 `./start.sh`
 
-# Stop the Forge
+### Stop the Forge
 
 `./stop.sh`
 
-# Start again the containers after stopped
+### Start again the containers after stopped
 
 `./resume.sh`
 
-# Remove the Forge 
+### Remove the Forge 
 
 **CAUTION: Will destroy all data**
 
@@ -45,17 +66,11 @@ In order to configure credentials, repos and other environment things you must e
 
 The config is divided in blocks.
 
-# Description
-
-This repo is intended to help developers who don't want to spend time struggling with system administration.
-
-When the forge is up, you can use the default user *developer* to login and start working.
-
-There is also a default project *awesome-project* ready to accept commits.
-
 # How to config CI
 
-1. Generate a SSH RSA Key
+Follow this steps to create a simple delivery pipeline.
+
+1. Generate a SSH RSA Key for developer user
 
 `ssh-keygen -t rsa -f developer.key -q -P ""`
 
@@ -63,7 +78,7 @@ load the key
 
 `ssh-add developer.key`
 
-2. Upload the key to Gerrit Server. Login as user Developer, go to *settings* and paste *developer.key.pub*' content.
+2. Upload the key to Gerrit Server. Login as user *developer*, go to *settings* and paste *developer.key.pub*' content.
 
 3. Clone repo
 
@@ -72,7 +87,7 @@ load the key
 4. Configure repo
 
 ```
-git config user.email "dev@example.com"
+git config user.email "dev@example.com" # This email must be the same as your _developer_ user account!!
 git config user.name "gerrit developer"
 gitdir=$(git rev-parse --git-dir); scp -p -P 29418 developer@localhost:hooks/commit-msg ${gitdir}/hooks/
 chmod +x .git/hooks/commit-msg
@@ -121,7 +136,7 @@ node {
 }
 ```
 
-6. Push our code on the repo
+6. Push the code to the repo
 
 ```
 git add ...
@@ -129,7 +144,7 @@ git commit -a -m MESSAGE
 git push origin HEAD:refs/for/master
 ```
 
-> At this point the job should has been triggered.
+> At this point the job should had been triggered.
 
 7. Create Jenkins merge job
 
@@ -197,8 +212,8 @@ We provided **phpLDAPAdmin** and **Self Service Password**. The first one is for
 
 ## Refs
 
-https://hub.docker.com/u/openfrontier/
-https://github.com/openfrontier
-https://medium.com/@sanjogkumardash/code-review-with-continuous-integration-setup-gerrit-jenkins-on-ubuntu-14-04-amazon-36286f594bf5
-https://gerrit-review.googlesource.com/Documentation/intro-gerrit-walkthrough.html#_making_the_change
-https://github.com/osixia/docker-phpLDAPadmin
+* https://hub.docker.com/u/openfrontier/
+* https://github.com/openfrontier
+* https://medium.com/@sanjogkumardash/code-review-with-continuous-integration-setup-gerrit-jenkins-on-ubuntu-14-04-amazon-36286f594bf5
+* https://gerrit-review.googlesource.com/Documentation/intro-gerrit-walkthrough.html#_making_the_change
+* https://github.com/osixia/docker-phpLDAPadmin
