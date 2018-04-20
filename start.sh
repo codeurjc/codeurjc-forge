@@ -12,7 +12,7 @@ fi
 ./createOpenLDAP.sh
 
 # Launching GERRIT
-export LDAP_SERVER=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{ .IPAddress}}{{end}}' ${FORGE_PREFIX}-${LDAP_NAME}):389
+export LDAP_SERVER=${FORGE_PREFIX}-${LDAP_NAME}:389
 export PUBLIC_IP=$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f8)
 export GERRIT_WEBURL=http://${PUBLIC_IP}
 
