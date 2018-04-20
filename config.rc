@@ -1,7 +1,11 @@
-# Prefix to label the stuff
+## Prefix to label the stuff
+# This string will be added to every container and volumes within the forge
 FORGE_PREFIX=codeurjc-forge
 
-# Containers name
+## Containers name
+# You can, of course, be more original than us
+# Those names and the prefix will be used be the forge to reach services
+# So avoid the use of spaces and special characters.
 APACHE_NAME=apache
 GERRIT_NAME=gerrit
 PG_GERRIT_NAME=pg-gerrit
@@ -11,17 +15,22 @@ JENKINS_NAME=jenkins
 ARCHIVA_NAME=archiva
 OPENLDAP_SSP_NAME=openldap-ssp
 
-# Volume name
+## Volume name
+# Names for the containers volume we keep data confy
 APACHE_VOLUME=apache-volume
 ARCHIVA_VOLUME=archiva-volume
 GERRIT_VOLUME=gerrit-volume
 JENKINS_VOLUME=jenkins-volume
 PG_GERRIT_VOLUME=pg-gerrit-volume
 
-# Network name
+## Network name
+# The forge will be deployed in an isolated network
+# set the name here
 CI_NETWORK=ci-network
 
-# Initial credentials
+## Initial credentials
+# We create two users by default. An admin and a regular user.
+# You can set up the information here.
 GERRIT_ADMIN_EMAIL=admin@example.com
 GERRIT_ADMIN_PWD=s3cr3t0
 GERRIT_ADMIN_UID=admin
@@ -29,7 +38,9 @@ GERRIT_DEVELOPER_EMAIL=dev@example.com
 GERRIT_DEVELOPER_PASSWORD=d3v3l0p3r
 GERRIT_DEVELOPER_USERNAME=developer
 
-# Docker images names
+## Docker images names
+# The docker image names we use are here. You could use different ones for
+# testing pourposes or other reasons.
 GERRIT_IMAGE_NAME=codeurjc/forge-gerrit
 JENKINS_IMAGE_NAME=codeurjc/forge-jenkins
 LDAP_IMAGE_NAME=openfrontier/openldap
@@ -38,7 +49,8 @@ HTTP_IMAGE_NAME=httpd
 ARCHIVA_IMAGE_NAME=xetusoss/archiva
 OPENLDAP_SSP_IMAGE_NAME=openfrontier/ldap-ssp
 
-# Containers port
+## Containers port
+# You can access the services by binding this ports in your machine.
 GERRIT_PORT=8080
 JENKINS_PORT=8181
 LDAPSSP_PORT=8282
@@ -46,17 +58,20 @@ PHPLDAPADMIN_PORT=8383
 ARCHIVA_PORT=8484
 HTTPD_PORT=8585
 
-# Initial project
+## Initial project
+# We provide an initial project to start working ASAP
 INITIAL_PROJECT_DESCRIPTION="Super project"
 INITIAL_PROJECT_NAME=awesome-project
-JENKINS_EMAIL=jenkins@domain.local
 
-# Ldap configuration
+## Ldap configuration
+# Set the credentials fot the admin ldap account
+# the default admin user is as ever _admin_
 LDAP_ACCOUNTBASE="dc=example,dc=com"
 SLAPD_DOMAIN=example.com
 SLAPD_PASSWORD=secret 
 
-# Misc
+## Misc
+# Other stuff
 TIMEZONE="Europe/Madrid"
 HTTPD_LISTENURL=http://*:${GERRIT_PORT}
 JENKINS_OPTS=--prefix=/jenkins
