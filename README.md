@@ -141,7 +141,7 @@ Git:
 
 Repositories: 
 
-**Repository URL**: ssh://jenkins@gerrit:29418/awesome-project
+**Repository URL**: ssh://jenkins@codeurjc-forge-gerrit:29418/awesome-project
 
 **Credentials**: jenkins (Jenkins Master)
 
@@ -181,10 +181,10 @@ Gerrit event
 TARGET_FOLDER=/usr/share/apache
 PROJECT_NAME=$(echo $GIT_URL | cut -d"/" -f4)
 
-docker run --rm --volumes-from jenkins -w ${WORKSPACE} maven mvn -DskipTests=true install compile package
+docker run --rm --volumes-from codeurjc-forge-jenkins -w ${WORKSPACE} maven mvn -DskipTests=true install compile package
 
 mkdir -p $TARGET_FOLDER/$PROJECT_NAME
-cp ./target/tema1_2-ejem1-0.0.1-SNAPSHOT.jar $TARGET_FOLDER/$PROJECT_NAME
+cp ./target/*.jar $TARGET_FOLDER/$PROJECT_NAME
 ```
 
 8. Aprove changes in Gerrit. Go to Gerrit -> All -> Open and vote with +2 the changes, then submit the changes to master. This action will trigger the merge job.
