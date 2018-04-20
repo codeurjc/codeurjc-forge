@@ -48,6 +48,7 @@ docker run \
 -e SMTP_USER=${SMTP_USER} \
 -e SMTP_PASS=${SMTP_PASS} \
 -e USER_EMAIL=${USER_EMAIL} \
+-e JENKINS_EMAIL="jenkins@domain.local" \
 -e GERRIT_INIT_ARGS='--install-plugin=download-commands --install-plugin=replication' \
 -e INITIAL_ADMIN_USER=${GERRIT_ADMIN_UID} \
 -e INITIAL_ADMIN_PASSWORD=${GERRIT_ADMIN_PWD} \
