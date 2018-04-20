@@ -5,6 +5,7 @@
 	DocumentRoot /usr/local/apache2/www
 	<Directory "/usr/local/apache2/www">
 		Options +Indexes
+		IndexOptions FancyIndexing
    		Order deny,allow
 		Deny from All
 		AuthName "Artifact Repository"
