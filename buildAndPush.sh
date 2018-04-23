@@ -4,6 +4,7 @@ set -e
 DATETIME=$(date +"%Y%m%d%H%M%S")
 
 docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+cd Docker
 
 pushd docker-jenkins
 docker build -t codeurjc/forge-jenkins .
