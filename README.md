@@ -19,7 +19,7 @@ It's based on [OpenFrontier](https://github.com/openfrontier/) work.
 
 This repo is intended to help developers who don't want to spend time struggling with system administration.
 
-When the forge is up, you can use the default user *developer* and pass *d3v3l0p3r* to login in every service and start working.
+When the forge is up, you can use the default user *dev1* or *dev2* and pass *d3v3l0p3r* to login in every service and start working. We've include two user in case you need to test with diferente users.
 
 There is also a default project *awesome-project* ready to accept commits.
 
@@ -70,7 +70,9 @@ The config is divided in blocks.
 
 Follow this steps to create a simple delivery pipeline.
 
-1. Generate a SSH RSA Key for developer user
+In this example we use *dev1* user all the time.
+
+1. Generate a SSH RSA Key for a developer user
 
 `ssh-keygen -t rsa -f developer.key -q -P ""`
 
@@ -78,24 +80,24 @@ load the key
 
 `ssh-add developer.key`
 
-2. Upload the key to Gerrit Server. Login as user *developer*, go to *settings* and paste *developer.key.pub*' content.
+2. Upload the key to Gerrit Server. Login as user *dev1*, go to *settings* and paste *developer.key.pub*' content.
 
 3. Clone repo
 
-`git clone ssh://developer@localhost:29418/awesome-project && cd awesome-project`
+`git clone ssh://dev1@localhost:29418/awesome-project && cd awesome-project`
 
 4. Configure repo
 
 ```
-git config user.email "dev@example.com" # This email must be the same as your _developer_ user account!!
-git config user.name "gerrit developer"
-gitdir=$(git rev-parse --git-dir); scp -p -P 29418 developer@localhost:hooks/commit-msg ${gitdir}/hooks/
+git config user.email "dev1@example.com" # This email must be the same as your _developer_ user account!!
+git config user.name "gerrit developer 1"
+gitdir=$(git rev-parse --git-dir); scp -p -P 29418 dev1@localhost:hooks/commit-msg ${gitdir}/hooks/
 chmod +x .git/hooks/commit-msg
 ```
 
 5. Create review job in Jenkins
 
-Jenkins -> New task -> Name: Gerrit-review -> Type: Pipeline
+Login into Jenkins with *dev1* and the default password and then go to Jenkins -> New task -> Name: Gerrit-review -> Type: Pipeline
 
 New pipeline configuration:
 
@@ -205,7 +207,7 @@ cp ./target/*.jar $TARGET_FOLDER/$PROJECT_NAME
 
 8. Aprove changes in Gerrit. Go to Gerrit -> All -> Open and vote with +2 the changes, then submit the changes to master. This action will trigger the merge job.
 
-9. Go to localhost to pick up the artifact(s).
+9. The final step, you can find the generated archifact by browsing to `localhost:8585` (**8585** is the default port) and login with *dev1* to get the file.
 
 ## Creating a new user in LDAP
 
