@@ -29,14 +29,17 @@ PG_GERRIT_VOLUME=pg-gerrit-volume
 CI_NETWORK=ci-network
 
 ## Initial credentials
-# We create two users by default. An admin and a regular user.
+# We create users by default. An admin and a couple of regular users.
 # You can set up the information here.
 GERRIT_ADMIN_EMAIL=admin@example.com
 GERRIT_ADMIN_PWD=s3cr3t0
 GERRIT_ADMIN_UID=admin
-GERRIT_DEVELOPER_EMAIL=dev@example.com
-GERRIT_DEVELOPER_PASSWORD=d3v3l0p3r
-GERRIT_DEVELOPER_USERNAME=developer
+DEVELOPER1_EMAIL=dev1@example.com
+DEVELOPER1_PASSWORD=d3v3l0p3r
+DEVELOPER1_USERNAME=dev1
+DEVELOPER2_EMAIL=dev2@example.com
+DEVELOPER2_PASSWORD=d3v3l0p3r
+DEVELOPER2_USERNAME=dev2
 
 ## Docker images names
 # The docker image names we use are here. You could use different ones for
@@ -47,7 +50,7 @@ LDAP_IMAGE_NAME=openfrontier/openldap
 POSTGRES_IMAGE_NAME=postgres
 HTTP_IMAGE_NAME=httpd
 ARCHIVA_IMAGE_NAME=xetusoss/archiva
-OPENLDAP_SSP_IMAGE_NAME=openfrontier/ldap-ssp
+OPENLDAP_SSP_IMAGE_NAME=codeurjc/forge-php-ssp
 
 ## Containers port
 # You can access the services by binding this ports in your machine.

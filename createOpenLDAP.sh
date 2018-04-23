@@ -23,8 +23,11 @@ sed -e "s/{SLAPD_DN}/${SLAPD_DN}/g" ${DIR}/${BASE_LDIF}.template > ${DIR}/${BASE
 sed -i "s/{ADMIN_UID}/${GERRIT_ADMIN_UID}/g" ${DIR}/${BASE_LDIF}
 sed -i "s/{ADMIN_EMAIL}/${GERRIT_ADMIN_EMAIL}/g" ${DIR}/${BASE_LDIF}
 
-sed -i "s/{DEVELOPER_USERNAME}/${GERRIT_DEVELOPER_USERNAME}/g" ${DIR}/${BASE_LDIF}
-sed -i "s/{DEVELOPER_EMAIL}/${GERRIT_DEVELOPER_EMAIL}/g" ${DIR}/${BASE_LDIF}
+sed -i "s/{DEVELOPER1_USERNAME}/${DEVELOPER1_USERNAME}/g" ${DIR}/${BASE_LDIF}
+sed -i "s/{DEVELOPER1_EMAIL}/${DEVELOPER1_EMAIL}/g" ${DIR}/${BASE_LDIF}
+
+sed -i "s/{DEVELOPER2_USERNAME}/${DEVELOPER2_USERNAME}/g" ${DIR}/${BASE_LDIF}
+sed -i "s/{DEVELOPER2_EMAIL}/${DEVELOPER2_EMAIL}/g" ${DIR}/${BASE_LDIF}
 
 #Start openldap
 docker run \
@@ -52,7 +55,12 @@ docker exec ${FORGE_PREFIX}-${LDAP_NAME} \
 ldappasswd -x -D "cn=admin,${SLAPD_DN}" -w ${SLAPD_PASSWORD} -s ${GERRIT_ADMIN_PWD} \
 "uid=${GERRIT_ADMIN_UID},ou=accounts,${SLAPD_DN}"
 
-# Developer user
+# Developer user 1
 docker exec ${FORGE_PREFIX}-${LDAP_NAME} \
-ldappasswd -x -D "cn=admin,${SLAPD_DN}" -w ${SLAPD_PASSWORD} -s ${GERRIT_DEVELOPER_PASSWORD} \
-"uid=${GERRIT_DEVELOPER_USERNAME},ou=accounts,${SLAPD_DN}"
+ldappasswd -x -D "cn=admin,${SLAPD_DN}" -w ${SLAPD_PASSWORD} -s ${DEVELOPER1_PASSWORD} \
+"uid=${DEVELOPER1_USERNAME},ou=accounts,${SLAPD_DN}"
+
+# Developer user 2
+docker exec ${FORGE_PREFIX}-${LDAP_NAME} \
+ldappasswd -x -D "cn=admin,${SLAPD_DN}" -w ${SLAPD_PASSWORD} -s ${DEVELOPER2_PASSWORD} \
+"uid=${DEVELOPER2_USERNAME},ou=accounts,${SLAPD_DN}"

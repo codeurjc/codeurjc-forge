@@ -30,18 +30,34 @@ sn: admin
 givenName: gerrit
 mail: {ADMIN_EMAIL}
 
-dn: uid={DEVELOPER_USERNAME},ou=accounts,dc=example,dc=com
+dn: uid={DEVELOPER1_USERNAME},ou=accounts,dc=example,dc=com
 objectClass: posixAccount
 objectClass: inetOrgPerson
 objectClass: organizationalPerson
 objectClass: person
-homeDirectory: /home/gerrit
+homeDirectory: /home/{DEVELOPER1_USERNAME}
 loginShell: /bin/false
 gidNumber: 10000
-uid: {DEVELOPER_USERNAME}
-cn: gerrit developer
-displayName: gerrit developer
+uid: {DEVELOPER1_USERNAME}
+cn: gerrit developer 1
+displayName: gerrit developer 1
 uidNumber: 10001
 sn: admin
-givenName: gerrit
-mail: {DEVELOPER_EMAIL}
+givenName: {DEVELOPER1_USERNAME}
+mail: {DEVELOPER1_EMAIL}
+
+dn: uid={DEVELOPER2_USERNAME},ou=accounts,dc=example,dc=com
+objectClass: posixAccount
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+homeDirectory: /home/{DEVELOPER2_USERNAME}
+loginShell: /bin/false
+gidNumber: 10000
+uid: {DEVELOPER2_USERNAME}
+cn: gerrit developer 2
+displayName: gerrit developer 2
+uidNumber: 10002
+sn: admin
+givenName: {DEVELOPER2_USERNAME}
+mail: {DEVELOPER2_EMAIL}
