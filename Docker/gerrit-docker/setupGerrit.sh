@@ -63,6 +63,11 @@ git config -f project.config --add access.refs/heads/*.label-Code-Review "-1..+1
 git config -f project.config --add access.refs/heads/*.label-Verified "-1..+1 group Non-Interactive Users"
 ##add project owners' right to add verify flag
 git config -f project.config --add access.refs/heads/*.label-Verified "-1..+1 group Project Owners"
+##add registerd user' right to add verify flag
+git config -f project.config --add access.refs/heads/*.label-Verified "-1..+1 group Registered Users"
+##add Admins' right to add verify flag
+git config -f project.config --add access.refs/heads/*.label-Verified "-1..+1 group Administrators"
+
 ##commit and push back
 git commit -a -m "Change access right." -m "Add access right for Jenkins. Remove anonymous access right"
 git push origin meta/config:meta/config

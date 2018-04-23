@@ -97,4 +97,4 @@ git config -f project.config --add access.refs/heads/*.push "group ${initial_gro
 git commit -a -m "Adjusting permissions"
 git push origin meta/config:meta/config
 
-# rm -rf ~/git
+rm -rf ~/git
