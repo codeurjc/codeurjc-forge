@@ -1,4 +1,8 @@
+#!/bin/bash
+
+gitlab-rails console production <<'EOF'
 u = User.first
+
 t = PersonalAccessToken.new({
     user: u,
     name: 'api',
@@ -7,3 +11,5 @@ t.save!
 File.write(
     '/tmp/gitlab-root-personal-access-token.txt',
     t.token)
+EOF
+
