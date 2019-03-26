@@ -16,13 +16,11 @@ RUN usermod -aG docker jenkins
 RUN mkdir -p /usr/share/apache && \
     chown 1000:1000 /usr/share/apache
 
-USER jenkins
-
 # Install plugins
 RUN /usr/local/bin/install-plugins.sh \
   docker-build-publish \
   docker-plugin \
-  gerrit-trigger \
+  gitlab-plugin \
   git \
   ldap \
   matrix-auth \
