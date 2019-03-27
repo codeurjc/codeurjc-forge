@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
+  <useSecurity>true</useSecurity>
   <clouds>
     <com.nirima.jenkins.plugins.docker.DockerCloud plugin="docker-plugin@0.16.0">
       <name>dockerSlave</name>

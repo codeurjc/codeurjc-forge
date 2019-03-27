@@ -18,45 +18,45 @@ RUN mkdir -p /usr/share/apache && \
 
 # Install plugins
 RUN /usr/local/bin/install-plugins.sh \
+  ace-editor \
+  branch-api \
+  cloudbees-folder \
+  command-launcher \
+  config-file-provider \
+  credentials \
+  custom-tools-plugin \
   docker-build-publish \
   docker-plugin \
-  gitlab-plugin \
+  docker-workflow \
   git \
-  ldap \
+  gitlab-plugin \
+  git-server \
+  handlebars \
+  jquery-detached \
   matrix-auth \
   maven-plugin \
-  parameterized-trigger \
-  command-launcher \
-  pipeline-milestone-step \
-  jquery-detached \
-  ace-editor \
-  workflow-cps \
-  pipeline-input-step \
-  pipeline-stage-step \
-  pipeline-graph-analysis \
-  pipeline-rest-api \
-  handlebars \
   momentjs \
-  pipeline-stage-view \
+  parameterized-trigger \
   pipeline-build-step \
+  pipeline-graph-analysis \
+  pipeline-input-step \
+  pipeline-milestone-step \
   pipeline-model-api \
-  pipeline-model-extensions \
-  cloudbees-folder \
-  git-server \
-  workflow-cps-global-lib \
-  branch-api \
-  workflow-multibranch \
-  workflow-durable-task-step \
-  docker-workflow \
-  pipeline-stage-tags-metadata \
   pipeline-model-declarative-agent \
-  workflow-basic-steps \
   pipeline-model-definition \
-  workflow-aggregator \
+  pipeline-model-extensions \
+  pipeline-rest-api \
+  pipeline-stage-step \
+  pipeline-stage-tags-metadata \
+  pipeline-stage-view \
   swarm \
-  ws-cleanup \
-  config-file-provider \
-  custom-tools-plugin
+  workflow-aggregator \
+  workflow-basic-steps \
+  workflow-cps \
+  workflow-cps-global-lib \
+  workflow-durable-task-step \
+  workflow-multibranch \
+  ws-cleanup 
 
 # Add groovy setup config
 COPY init.groovy.d/ /usr/share/jenkins/ref/init.groovy.d/
