@@ -1,0 +1,3 @@
+gitlab_rails['initial_root_password'] = 'PASSWD'
+gitlab_rails['initial_shared_runners_registration_token'] = 'TOKEN'
+

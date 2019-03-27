@@ -1,0 +1,26 @@
+image: maven:3.6.0-jdk-11
+
+Dependencies:
+  stage: build
+  only:
+  - branches
+  - tags
+  - merge_requests
+  script: 
+    - mvn -DskipTests=true --batch-mode install
+
+Build:
+  stage: build
+  only:
+  - branches
+  - tags
+  - merge_requests
+  script: 
+    - mvn -DskipTests=true --batch-mode clean compile package
+
+Test:
+  stage: test
+  only:
+  - merge_requests
+  script:
+    - mvn test

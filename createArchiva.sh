@@ -23,10 +23,10 @@ generate_post_data()
   cat <<EOF
 {
 	"username":"admin",
-	"password":"$GERRIT_ADMIN_PWD",
-	"confirmPassword":"$GERRIT_ADMIN_PWD",
+	"password":"${ADMIN_PWD}",
+	"confirmPassword":"${ADMIN_PWD}",
 	"fullName":"URJC CI Forge",
-	"email":"$GERRIT_ADMIN_EMAIL",
+	"email":"${ADMIN_EMAIL}",
 	"assignedRoles":[],
 	"modified":true,
 	"rememberme":false,

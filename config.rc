@@ -4,39 +4,42 @@ FORGE_PREFIX=codeurjc-forge
 
 ## Containers name
 # You can, of course, be more original than us
-# Those names and the prefix will be used be the forge to reach services
+# Those names and the prefix will be used by the forge to reach services
 # So avoid the use of spaces and special characters.
 APACHE_NAME=apache
-GERRIT_NAME=gerrit
-PG_GERRIT_NAME=pg-gerrit
-LDAP_NAME=openldap
-PHPLDAPADMIN_NAME=phpldapadmin
 JENKINS_NAME=jenkins
 ARCHIVA_NAME=archiva
-OPENLDAP_SSP_NAME=openldap-ssp
+GITLAB_NAME=gitlab
+GITLAB_RUNNER_NAME=gitlab-runner
 
 ## Volume name
 # Names for the containers volume we keep data confy
 APACHE_VOLUME=apache-volume
 ARCHIVA_VOLUME=archiva-volume
-GERRIT_VOLUME=gerrit-volume
 JENKINS_VOLUME=jenkins-volume
-PG_GERRIT_VOLUME=pg-gerrit-volume
+GITLAB_VOLUME_RUNNER=gitlab-runner-volume
 
 ## Network name
 # The forge will be deployed in an isolated network
 # set the name here
 CI_NETWORK=ci-network
 
+# Bash Colors
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[1;33m'
+export NC='\033[0m'
+
 ## Initial credentials
 # We create users by default. An admin and a couple of regular users.
 # You can set up the information here.
-GERRIT_ADMIN_EMAIL=admin@example.com
-GERRIT_ADMIN_PWD=s3cr3t0
-GERRIT_ADMIN_UID=admin
+ADMIN_EMAIL=admin@example.com
+ADMIN_PWD=s3cr3t05
+ADMIN_UID=admin
 DEVELOPER1_EMAIL=dev1@example.com
 DEVELOPER1_PASSWORD=d3v3l0p3r
 DEVELOPER1_USERNAME=dev1
+DEVELOPER1_NAME=developer
 DEVELOPER2_EMAIL=dev2@example.com
 DEVELOPER2_PASSWORD=d3v3l0p3r
 DEVELOPER2_USERNAME=dev2
@@ -44,34 +47,30 @@ DEVELOPER2_USERNAME=dev2
 ## Docker images names
 # The docker image names we use are here. You could use different ones for
 # testing pourposes or other reasons.
-GERRIT_IMAGE_NAME=codeurjc/forge-gerrit
-JENKINS_IMAGE_NAME=codeurjc/forge-jenkins
-LDAP_IMAGE_NAME=openfrontier/openldap
-POSTGRES_IMAGE_NAME=postgres
+JENKINS_IMAGE_NAME=codeurjc/forge-jenkins:v2
 HTTP_IMAGE_NAME=httpd
 ARCHIVA_IMAGE_NAME=xetusoss/archiva
-OPENLDAP_SSP_IMAGE_NAME=codeurjc/forge-php-ssp
+GITLAB_IMAGE_NAME=gitlab/gitlab-ce:latest
+GITLAB_RUNNER_IMAGE_NAME=gitlab/gitlab-runner:latest
 
 ## Containers port
 # You can access the services by binding this ports in your machine.
 GERRIT_PORT=8080
 JENKINS_PORT=8181
-LDAPSSP_PORT=8282
-PHPLDAPADMIN_PORT=8383
+HTTPD_PORT=8282
+GITLAB_PORT=8383
 ARCHIVA_PORT=8484
-HTTPD_PORT=8585
+GITLAB_SSH_PORT=2222
 
 ## Initial project
 # We provide an initial project to start working ASAP
 INITIAL_PROJECT_DESCRIPTION="Super project"
 INITIAL_PROJECT_NAME=awesome-project
 
-## Ldap configuration
-# Set the credentials fot the admin ldap account
-# the default admin user is as ever _admin_
-LDAP_ACCOUNTBASE="dc=example,dc=com"
-SLAPD_DOMAIN=example.com
-SLAPD_PASSWORD=secret 
+# Gitlab configuration
+GITLAB_RUNNER_REGISTRATION_TOKEN=AZJ2Wu8aq27kup5c2WZx
+GITLAB_URL=http://${FORGE_PREFIX}-${GITLAB_NAME}
+GITLAB_DIR=${HOME}/urjc-forge/gitlab
 
 ## Misc
 # Other stuff
