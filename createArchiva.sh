@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 set -e
 
 . config.rc
@@ -14,7 +14,7 @@ docker run \
 
 until curl --location --output /dev/null --silent --write-out "%{http_code}\\n" "http://localhost:${ARCHIVA_PORT}/" | grep 200 &>/dev/null
 do
-  echo "Waiting for Archiva"
+  echo -e "${YELLOW}Waiting for Archiva${NC}"
   sleep 1
 done
 

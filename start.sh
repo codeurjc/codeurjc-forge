@@ -22,12 +22,15 @@ export PUBLIC_IP=$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f8)
 # Launching ARCHIVA
 ./createArchiva.sh
 
-echo "##################"
+
+echo ""
+echo ""
+echo -e "${GREEN}##################"
 echo "###    Done    ###"
-echo "##################"
+echo -e "##################${NC}"
 echo ""
-echo "- URLs:"
-echo ""
+echo -e "${GREEN}### URLs:${NC}"
+echo "--------------------"
 echo "Jenkins Service  -> http://${PUBLIC_IP}:${JENKINS_PORT}/jenkins"
 echo "Archiva Service  -> http://${PUBLIC_IP}:${ARCHIVA_PORT}"
 echo "Apache Service   -> http://${PUBLIC_IP}:${HTTPD_PORT}"
@@ -35,7 +38,8 @@ echo "Gitlab Service   -> http://${PUBLIC_IP}:${GITLAB_PORT}"
 
 echo ""
 echo ""
-echo -e "${GREEN}### Deploy finished! $NC"
+echo -e "${GREEN}### Credentials $NC"
 echo "--------------------"
-echo -e "You can go now to http://localhost/ and login with user: ${YELLOW}root${NC} and password: ${YELLOW}${ADMIN_PWD}${NC}"
-echo -e "Also, you can use an account for non admin purposes: ${YELLOW}developer${NC} and password: ${YELLOW}d3v3l0p3r${NC}"
+echo -e "Credentials for Gitlab: ${YELLOW}root${NC} and password: ${YELLOW}${ADMIN_PWD}${NC}"
+echo -e "Credentials for Jenkins: ${YELLOW}admin${NC} and password: ${YELLOW}${ADMIN_PWD}${NC}"
+echo -e "Credentials for non admin purposes: ${YELLOW}${DEVELOPER1_USERNAME}${NC} and password: ${YELLOW}${DEVELOPER1_PASSWORD}${NC}"
