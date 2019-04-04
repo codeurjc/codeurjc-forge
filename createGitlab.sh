@@ -3,8 +3,7 @@ set -eu -o pipefail
 
 . config.rc
 
-GITLAB_DIR=$(mktemp -d )
-#mkdir -p ${GITLAB_DIR}
+mkdir -p ${GITLAB_DIR}
 
 # Volume for docker runner
 docker volume create --name ${FORGE_PREFIX}-${GITLAB_VOLUME_RUNNER}
