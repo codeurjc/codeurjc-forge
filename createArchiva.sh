@@ -7,8 +7,6 @@ mkdir -p ~/urjc-forge/archiva/conf
 chmod -R 777 ~/urjc-forge/archiva
 cp -v archiva/archiva.xml ~/urjc-forge/archiva/conf
 
-#docker volume create --name ${FORGE_PREFIX}-${ARCHIVA_VOLUME}
-
 docker run \
 --name ${FORGE_PREFIX}-${ARCHIVA_NAME} \
 --net ${CI_NETWORK} \

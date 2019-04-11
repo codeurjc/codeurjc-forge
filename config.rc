@@ -6,7 +6,6 @@ FORGE_PREFIX=codeurjc-forge
 # You can, of course, be more original than us
 # Those names and the prefix will be used by the forge to reach services
 # So avoid the use of spaces and special characters.
-APACHE_NAME=apache
 JENKINS_NAME=jenkins
 ARCHIVA_NAME=archiva
 GITLAB_NAME=gitlab
@@ -14,8 +13,6 @@ GITLAB_RUNNER_NAME=gitlab-runner
 
 ## Volume name
 # Names for the containers volume we keep data confy
-APACHE_VOLUME=apache-volume
-ARCHIVA_VOLUME=archiva-volume
 JENKINS_VOLUME=jenkins-volume
 GITLAB_VOLUME_RUNNER=gitlab-runner-volume
 
@@ -48,7 +45,6 @@ DEVELOPER2_USERNAME=dev2
 # The docker image names we use are here. You could use different ones for
 # testing pourposes or other reasons.
 JENKINS_IMAGE_NAME=codeurjc/forge-jenkins:v2
-HTTP_IMAGE_NAME=httpd
 ARCHIVA_IMAGE_NAME=xetusoss/archiva
 GITLAB_IMAGE_NAME=gitlab/gitlab-ce:latest
 GITLAB_RUNNER_IMAGE_NAME=gitlab/gitlab-runner:latest
@@ -57,7 +53,6 @@ GITLAB_RUNNER_IMAGE_NAME=gitlab/gitlab-runner:latest
 # You can access the services by binding this ports in your machine.
 GERRIT_PORT=8080
 JENKINS_PORT=8181
-HTTPD_PORT=8282
 GITLAB_PORT=8383
 ARCHIVA_PORT=8484
 GITLAB_SSH_PORT=2222

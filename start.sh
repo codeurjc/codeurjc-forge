@@ -16,12 +16,8 @@ export PUBLIC_IP=$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f8)
 # Launching JENKINS
 ./createJenkins.sh
 
-# Launching Apache
-./createApache.sh
-
 # Launching ARCHIVA
 ./createArchiva.sh
-
 
 echo ""
 echo ""
@@ -33,7 +29,6 @@ echo -e "${GREEN}### URLs:${NC}"
 echo "--------------------"
 echo "Jenkins Service  -> http://${PUBLIC_IP}:${JENKINS_PORT}/jenkins"
 echo "Archiva Service  -> http://${PUBLIC_IP}:${ARCHIVA_PORT}"
-echo "Apache Service   -> http://${PUBLIC_IP}:${HTTPD_PORT}"
 echo "Gitlab Service   -> http://${PUBLIC_IP}:${GITLAB_PORT}"
 
 echo ""
