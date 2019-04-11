@@ -3,12 +3,16 @@ set -e
 
 . config.rc
 
-docker volume create --name ${FORGE_PREFIX}-${ARCHIVA_VOLUME}
+mkdir -p ~/urjc-forge/archiva/conf
+chmod -R 777 ~/urjc-forge/archiva
+cp -v archiva/archiva.xml ~/urjc-forge/archiva/conf
+
+#docker volume create --name ${FORGE_PREFIX}-${ARCHIVA_VOLUME}
 
 docker run \
 --name ${FORGE_PREFIX}-${ARCHIVA_NAME} \
 --net ${CI_NETWORK} \
---volume ${FORGE_PREFIX}-${ARCHIVA_VOLUME}:/archiva-data \
+--volume $HOME/urjc-forge/archiva:/archiva-data \
 --publish ${ARCHIVA_PORT}:8080 \
 --detach ${ARCHIVA_IMAGE_NAME}
 
@@ -18,7 +22,7 @@ do
   sleep 1
 done
 
-generate_post_data()
+generate_admin_data()
 {
   cat <<EOF
 {
@@ -35,9 +39,61 @@ generate_post_data()
 EOF
 }
 
-curl "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/userService/createAdminUser" \
+curl -v "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/userService/createAdminUser" \
 -H "Origin: http://localhost:${ARCHIVA_PORT}" \
 -H "Content-Type: application/json" \
 -H "Referer: http://localhost:${ARCHIVA_PORT}/" \
 -H "Connection: keep-alive" \
---data "$(generate_post_data)" --compressed
+--data "$(generate_admin_data)" --compressed
+
+generate_user_data()
+{
+  cat <<EOF
+{
+	"username":"${DEVELOPER1_USERNAME}",
+	"password":"${DEVELOPER1_PASSWORD}",
+	"confirmPassword":"${DEVELOPER1_PASSWORD}",
+	"fullName":"developer",
+	"email":"${DEVELOPER1_EMAIL}",
+	"modified":true,
+	"rememberme":false,
+	"logged":false,
+	"validated":true
+}
+EOF
+}
+
+curl -v "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/userService/createUser" \
+  -u admin:${GERRIT_ADMIN_PWD} \
+  -H "Origin: http://localhost:${ARCHIVA_PORT}" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -H "Referer: http://localhost:${ARCHIVA_PORT}/" \
+  -H "Connection: keep-alive" \
+  --data "$(generate_user_data)" --compressed
+
+generate_user_role()
+{
+	cat <<EOF
+{
+	"username": "${DEVELOPER1_USERNAME}",
+	"assignedRoles": ["Registered User", "Global Repository Manager", "Global Repository Observer"],
+	"fullName":"developer",
+	"email":"${DEVELOPER1_EMAIL}",
+	"locked":false,
+	"logged":false,
+	"modified":true,
+	"rememberme": false
+}
+EOF
+}
+
+curl -v "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/roleManagementService/updateUserRoles" \
+  -u admin:${GERRIT_ADMIN_PWD} \
+  -H "Origin: http://localhost:${ARCHIVA_PORT}" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -H "Referer: http://localhost:${ARCHIVA_PORT}/" \
+  -H "Connection: keep-alive" \
+  --data "$(generate_user_role)" --compressed
+
