@@ -12,3 +12,5 @@ for volume in $(docker volume ls --filter "name=${FORGE_PREFIX}*" --format "{{ .
 do
   docker volume rm $volume
 done
+
+rm -rf ${FORGE_CONFIG_DIR}

@@ -2,6 +2,12 @@
 # This string will be added to every container and volumes within the forge
 FORGE_PREFIX=codeurjc-forge
 
+## Forge Config Dir
+# The Forge will use this directory to write some configuration
+# before launch the containers. For example, we need to configure
+# access to Archiva Rest API before launch Archiva itself
+FORGE_CONFIG_DIR=${HOME}/codeurjc-forge
+
 ## Containers name
 # You can, of course, be more original than us
 # Those names and the prefix will be used by the forge to reach services
@@ -40,18 +46,21 @@ DEVELOPER1_NAME=developer
 DEVELOPER2_EMAIL=dev2@example.com
 DEVELOPER2_PASSWORD=d3v3l0p3r
 DEVELOPER2_USERNAME=dev2
+CI_USERNAME=jenkins
+CI_NAME="Jenkins CI"
+CI_PASSWORD=j3nk1ns_c1
+CI_EMAIL=jenkins@example.com
 
 ## Docker images names
 # The docker image names we use are here. You could use different ones for
 # testing pourposes or other reasons.
 JENKINS_IMAGE_NAME=codeurjc/forge-jenkins:v2
-ARCHIVA_IMAGE_NAME=xetusoss/archiva
-GITLAB_IMAGE_NAME=gitlab/gitlab-ce:latest
-GITLAB_RUNNER_IMAGE_NAME=gitlab/gitlab-runner:latest
+ARCHIVA_IMAGE_NAME=codeurjc/forge-archiva:v2
+GITLAB_IMAGE_NAME=codeurjc/forge-gitlab:v2
+GITLAB_RUNNER_IMAGE_NAME=codeurjc/forge-gitlab-runner:v2
 
 ## Containers port
 # You can access the services by binding this ports in your machine.
-GERRIT_PORT=8080
 JENKINS_PORT=8181
 GITLAB_PORT=8383
 ARCHIVA_PORT=8484
@@ -65,10 +74,8 @@ INITIAL_PROJECT_NAME=awesome-project
 # Gitlab configuration
 GITLAB_RUNNER_REGISTRATION_TOKEN=AZJ2Wu8aq27kup5c2WZx
 GITLAB_URL=http://${FORGE_PREFIX}-${GITLAB_NAME}
-GITLAB_DIR=${HOME}/urjc-forge/gitlab
 
 ## Misc
 # Other stuff
 TIMEZONE="Europe/Madrid"
-HTTPD_LISTENURL=http://*:${GERRIT_PORT}
 JENKINS_OPTS=--prefix=/jenkins

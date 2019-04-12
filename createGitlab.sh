@@ -3,9 +3,10 @@ set -eu -o pipefail
 
 . config.rc
 
-mkdir -p ${GITLAB_DIR}
+CONFIG_DIR=${FORGE_CONFIG_DIR}/gitlab
+mkdir -p ${CONFIG_DIR}
 
-# Volume for docker runner
+# Volume for Gitlab runner
 docker volume create --name ${FORGE_PREFIX}-${GITLAB_VOLUME_RUNNER}
 
 JSON_FILE=$(mktemp -t file-XXX --suffix .json)
@@ -13,8 +14,8 @@ JSON_FILE=$(mktemp -t file-XXX --suffix .json)
 # Gitlab configuration file
 sed "s/PASSWD/${ADMIN_PWD}/" gitlab.rb.template > gitlab.rb
 sed -i "s/TOKEN/${GITLAB_RUNNER_REGISTRATION_TOKEN}/" gitlab.rb
-mkdir -p ${GITLAB_DIR}/config
-mv -v gitlab.rb ${GITLAB_DIR}/config
+mkdir -p ${CONFIG_DIR}/config
+mv -v gitlab.rb ${CONFIG_DIR}/config
 
 echo -e "${GREEN}### Starting Gitlab CE...$NC"
 docker run --detach \
@@ -22,9 +23,9 @@ docker run --detach \
   --publish ${GITLAB_PORT}:80 --publish ${GITLAB_SSH_PORT}:22 \
   --name ${FORGE_PREFIX}-${GITLAB_NAME} \
   --net ${CI_NETWORK} \
-  --volume ${GITLAB_DIR}/config:/etc/gitlab \
-  --volume ${GITLAB_DIR}/logs:/var/log/gitlab \
-  --volume ${GITLAB_DIR}/data:/var/opt/gitlab \
+  --volume ${CONFIG_DIR}/config:/etc/gitlab \
+  --volume ${CONFIG_DIR}/logs:/var/log/gitlab \
+  --volume ${CONFIG_DIR}/data:/var/opt/gitlab \
   ${GITLAB_IMAGE_NAME}
   
 
@@ -60,7 +61,7 @@ docker exec -t ${FORGE_PREFIX}-${GITLAB_NAME} sh -c "/opt/gitlab/embedded/bin/cu
 
 TOKEN=$(docker exec -t ${FORGE_PREFIX}-${GITLAB_NAME} cat /tmp/gitlab-root-personal-access-token.txt)
 
-echo -e "${GREEN}### Creating user... $NC"
+echo -e "${GREEN}### Creating user ${DEVELOPER1_USERNAME}... $NC"
 cat>${JSON_FILE}<<EOF
 {
   "email": "${DEVELOPER1_EMAIL}",
@@ -108,7 +109,7 @@ echo -e "${GREEN}### Creating project for the user... $NC"
 cat>${JSON_FILE}<<EOF
 {
   "user_id": "2",
-  "name": "Awesome project"
+  "name": "${INITIAL_PROJECT_NAME}"
 }
 EOF
 
@@ -118,6 +119,42 @@ curl --header "Private-Token: ${TOKEN}" \
   -X POST \
   --data @${JSON_FILE} \
   http://localhost:${GITLAB_PORT}/api/v4/projects/user/2
+
+echo ""
+echo ""
+echo -e "${GREEN}### Creating user ${CI_USERNAME}... $NC"
+cat>${JSON_FILE}<<EOF
+{
+  "email": "${CI_EMAIL}",
+  "username": "${CI_USERNAME}",
+  "name": "${CI_NAME}",
+  "password": "${CI_PASSWORD}",
+  "skip_confirmation": "true"
+}
+EOF
+curl --header "Private-Token: ${TOKEN}" \
+  -H 'Content-Type:application/json' \
+  -H 'Accept:application/json' \
+  -X POST \
+  --data @${JSON_FILE} \
+  http://localhost:${GITLAB_PORT}/api/v4/users
+
+echo ""
+echo ""
+echo -e "${GREEN}### Adding ${CI_USERNAME} to project ${INITIAL_PROJECT_NAME}... $NC"  
+cat>${JSON_FILE}<<EOF
+{
+  "user_id": "3",
+  "access_level": "30"
+}
+EOF
+
+curl --header "PRIVATE-TOKEN: ${TOKEN}" \
+  -H 'Content-Type:application/json' \
+  -H 'Accept:application/json' \
+  -X POST \
+  --data @${JSON_FILE} \
+  http://localhost:${GITLAB_PORT}/api/v4/projects/1/members
 
 rm ${JSON_FILE}
 

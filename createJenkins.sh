@@ -14,7 +14,6 @@ docker run \
 -p ${JENKINS_PORT}:8080 \
 --volume ${FORGE_PREFIX}-${JENKINS_VOLUME}:/var/jenkins_home \
 --volume /var/run/docker.sock:/var/run/docker.sock \
---volume ${FORGE_PREFIX}-${APACHE_VOLUME}:/usr/share/apache \
 -e JAVA_OPTS="-Duser.timezone=${TIMEZONE} -Djenkins.install.runSetupWizard=false" \
 -e JENKINS_ADMIN_USER=${ADMIN_UID} \
 -e JENKINS_ADMIN_PASS=${ADMIN_PWD} \

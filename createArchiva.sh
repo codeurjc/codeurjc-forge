@@ -3,14 +3,15 @@ set -e
 
 . config.rc
 
-mkdir -p ~/urjc-forge/archiva/conf
-chmod -R 777 ~/urjc-forge/archiva
-cp -v archiva/archiva.xml ~/urjc-forge/archiva/conf
+CONFIG_DIR=${FORGE_CONFIG_DIR}/archiva
+mkdir -p ${CONFIG_DIR}/conf
+chmod -R 777 ${CONFIG_DIR}
+cp -v archiva/archiva.xml ${CONFIG_DIR}/conf
 
 docker run \
 --name ${FORGE_PREFIX}-${ARCHIVA_NAME} \
 --net ${CI_NETWORK} \
---volume $HOME/urjc-forge/archiva:/archiva-data \
+--volume ${CONFIG_DIR}:/archiva-data \
 --publish ${ARCHIVA_PORT}:8080 \
 --detach ${ARCHIVA_IMAGE_NAME}
 
@@ -44,6 +45,8 @@ curl -v "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/userServi
 -H "Connection: keep-alive" \
 --data "$(generate_admin_data)" --compressed
 
+echo ""
+
 generate_user_data()
 {
   cat <<EOF
@@ -62,13 +65,15 @@ EOF
 }
 
 curl -v "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/userService/createUser" \
-  -u admin:${GERRIT_ADMIN_PWD} \
+  -u admin:${ADMIN_PWD} \
   -H "Origin: http://localhost:${ARCHIVA_PORT}" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Referer: http://localhost:${ARCHIVA_PORT}/" \
   -H "Connection: keep-alive" \
   --data "$(generate_user_data)" --compressed
+
+echo ""
 
 generate_user_role()
 {
@@ -87,7 +92,7 @@ EOF
 }
 
 curl -v "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/roleManagementService/updateUserRoles" \
-  -u admin:${GERRIT_ADMIN_PWD} \
+  -u admin:${ADMIN_PWD} \
   -H "Origin: http://localhost:${ARCHIVA_PORT}" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -95,3 +100,4 @@ curl -v "http://localhost:${ARCHIVA_PORT}/restServices/redbackServices/roleManag
   -H "Connection: keep-alive" \
   --data "$(generate_user_role)" --compressed
 
+echo ""
