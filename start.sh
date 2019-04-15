@@ -10,6 +10,15 @@ fi
 
 export PUBLIC_IP=$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f8)
 
+# Check if there is a previous launching
+if [ -d "${FORGE_CONFIG_DIR}" ]; then
+  echo -e "${RED}[ERROR] There is a config dir ${FORGE_CONFIG_DIR}.${NC}"
+  echo "Try to run ./resume.sh or if you want a fresh start run:"
+  echo ""
+  echo "    sudo rm -rf ${FORGE_CONFIG_DIR} "
+  exit 1
+fi
+
 # Launching Gitlab
 ./createGitlab.sh
 

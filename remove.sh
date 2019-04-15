@@ -13,4 +13,7 @@ do
   docker volume rm $volume
 done
 
-rm -rf ${FORGE_CONFIG_DIR}
+echo -e "${GREEN}Some files under ${FORGE_CONFIG_DIR} are created by root and cannot be deleted by a regular user.${NC}"
+echo    "Please, type your password when promted"
+echo    ""
+sudo rm -rf ${FORGE_CONFIG_DIR}
