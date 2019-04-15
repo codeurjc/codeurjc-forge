@@ -44,8 +44,8 @@ DEVELOPER2_USERNAME=dev2
 ## Docker images names
 # The docker image names we use are here. You could use different ones for
 # testing pourposes or other reasons.
-GERRIT_IMAGE_NAME=codeurjc/forge-gerrit
-JENKINS_IMAGE_NAME=codeurjc/forge-jenkins
+GERRIT_IMAGE_NAME=codeurjc/forge-gerrit:20180423142446
+JENKINS_IMAGE_NAME=codeurjc/forge-jenkins:20180423142446
 LDAP_IMAGE_NAME=openfrontier/openldap
 POSTGRES_IMAGE_NAME=postgres
 HTTP_IMAGE_NAME=httpd
