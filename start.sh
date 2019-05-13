@@ -19,7 +19,7 @@ if [ -d "${FORGE_CONFIG_DIR}" ]; then
   exit 1
 fi
 
-# Launching Gitlab
+# Launching GITLAB
 ./createGitlab.sh
 
 # Launching JENKINS
@@ -27,6 +27,9 @@ fi
 
 # Launching ARCHIVA
 ./createArchiva.sh
+
+# Launching SONAR
+./createSonar.sh
 
 echo ""
 echo ""
@@ -36,14 +39,17 @@ echo -e "##################${NC}"
 echo ""
 echo -e "${GREEN}### URLs:${NC}"
 echo "--------------------"
-echo "Jenkins Service  -> http://${PUBLIC_IP}:${JENKINS_PORT}/jenkins"
-echo "Archiva Service  -> http://${PUBLIC_IP}:${ARCHIVA_PORT}"
-echo "Gitlab Service   -> http://${PUBLIC_IP}:${GITLAB_PORT}"
+echo "Jenkins Service   -> http://${PUBLIC_IP}:${JENKINS_PORT}/jenkins"
+echo "Archiva Service   -> http://${PUBLIC_IP}:${ARCHIVA_PORT}"
+echo "Gitlab Service    -> http://${PUBLIC_IP}:${GITLAB_PORT}"
+echo "SonarQube Service -> http://${PUBLIC_IP}:${SONAR_PORT}"
 
 echo ""
 echo ""
 echo -e "${GREEN}### Credentials $NC"
 echo "--------------------"
-echo -e "Credentials for Gitlab: ${YELLOW}root${NC} and password: ${YELLOW}${ADMIN_PWD}${NC}"
-echo -e "Credentials for Jenkins: ${YELLOW}admin${NC} and password: ${YELLOW}${ADMIN_PWD}${NC}"
+echo -e "Credentials for Gitlab:    ${YELLOW}root${NC} and password: ${YELLOW}${ADMIN_PWD}${NC}"
+echo -e "Credentials for Jenkins:   ${YELLOW}admin${NC} and password: ${YELLOW}${ADMIN_PWD}${NC}"
+echo -e "Credentials for SonarQube: ${YELLOW}admin${NC} and password: ${YELLOW}${ADMIN_PWD}${NC}"
 echo -e "Credentials for non admin purposes: ${YELLOW}${DEVELOPER1_USERNAME}${NC} and password: ${YELLOW}${DEVELOPER1_PASSWORD}${NC}"
+echo -e "Token for SonarQube: ${YELLOW}$(cat sonarqube/SonarQubeToken.txt)${NC}"

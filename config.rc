@@ -16,10 +16,12 @@ JENKINS_NAME=jenkins
 ARCHIVA_NAME=archiva
 GITLAB_NAME=gitlab
 GITLAB_RUNNER_NAME=gitlab-runner
+SONAR_NAME=sonar
 
 ## Volume name
 # Names for the containers volume we keep data confy
 JENKINS_VOLUME=jenkins-volume
+SONAR_VOLUME=sonar-volume
 GITLAB_VOLUME_RUNNER=gitlab-runner-volume
 
 ## Network name
@@ -57,11 +59,13 @@ CI_EMAIL=jenkins@example.com
 JENKINS_IMAGE_NAME=codeurjc/forge-jenkins:v2
 ARCHIVA_IMAGE_NAME=codeurjc/forge-archiva:v2
 GITLAB_IMAGE_NAME=codeurjc/forge-gitlab:v2
+SONAR_IMAGE_NAME=codeurjc/forge-sonarqube:v1
 GITLAB_RUNNER_IMAGE_NAME=codeurjc/forge-gitlab-runner:v2
 
 ## Containers port
 # You can access the services by binding this ports in your machine.
 JENKINS_PORT=8181
+SONAR_PORT=8282
 GITLAB_PORT=8383
 ARCHIVA_PORT=8484
 GITLAB_SSH_PORT=2222
