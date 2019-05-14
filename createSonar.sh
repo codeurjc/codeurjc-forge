@@ -19,7 +19,7 @@ TIMEOUT=60
 i=0
 set +e
 while true; do
-  LINE=$(docker logs --tail 1 ${FORGE_PREFIX}-${SONAR_NAME})
+  LINE=$(docker logs --tail 1 ${FORGE_PREFIX}-${SONAR_NAME} 2>&1)
   echo $LINE | grep -q "SonarQube is up"
   if [ "$?" == "0" ]; then
     break;
@@ -27,6 +27,7 @@ while true; do
   i=$(expr $i + 1)
   if [ "$i" == "$TIMEOUT" ]; then
     echo -e "${RED}Timeout${NC}"
+    break;
   fi
   echo -e "${YELLOW}Waiting for SonarQube...${NC}"
   sleep 5
