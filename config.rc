@@ -13,14 +13,16 @@ FORGE_CONFIG_DIR=${HOME}/codeurjc-forge
 # Those names and the prefix will be used by the forge to reach services
 # So avoid the use of spaces and special characters.
 JENKINS_NAME=jenkins
-ARCHIVA_NAME=archiva
 GITLAB_NAME=gitlab
 GITLAB_RUNNER_NAME=gitlab-runner
+CLAIR_PS_NAME=clair-postgres
+CLAIR_NAME=clair
 
 ## Volume name
 # Names for the containers volume we keep data confy
 JENKINS_VOLUME=jenkins-volume
 GITLAB_VOLUME_RUNNER=gitlab-runner-volume
+CLAIR_PS_VOLUME=clair-postgres
 
 ## Network name
 # The forge will be deployed in an isolated network
@@ -55,15 +57,16 @@ CI_EMAIL=jenkins@example.com
 # The docker image names we use are here. You could use different ones for
 # testing pourposes or other reasons.
 JENKINS_IMAGE_NAME=codeurjc/forge-jenkins:v2
-ARCHIVA_IMAGE_NAME=codeurjc/forge-archiva:v2
 GITLAB_IMAGE_NAME=codeurjc/forge-gitlab:v2
 GITLAB_RUNNER_IMAGE_NAME=codeurjc/forge-gitlab-runner:v2
+CLAIR_IMAGE_NAME=codeurjc/forge-clair:v1
 
 ## Containers port
 # You can access the services by binding this ports in your machine.
 JENKINS_PORT=8181
 GITLAB_PORT=8383
-ARCHIVA_PORT=8484
+CLAIR_PORT_1=6060
+CLAIR_PORT_2=6061
 GITLAB_SSH_PORT=2222
 
 ## Initial project

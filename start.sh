@@ -19,14 +19,14 @@ if [ -d "${FORGE_CONFIG_DIR}" ]; then
   exit 1
 fi
 
-# Launching Gitlab
+# Launching GITLAB
 ./createGitlab.sh
 
 # Launching JENKINS
 ./createJenkins.sh
 
-# Launching ARCHIVA
-./createArchiva.sh
+# Launching CLAIR
+./createClair.sh
 
 echo ""
 echo ""
@@ -37,8 +37,8 @@ echo ""
 echo -e "${GREEN}### URLs:${NC}"
 echo "--------------------"
 echo "Jenkins Service  -> http://${PUBLIC_IP}:${JENKINS_PORT}/jenkins"
-echo "Archiva Service  -> http://${PUBLIC_IP}:${ARCHIVA_PORT}"
 echo "Gitlab Service   -> http://${PUBLIC_IP}:${GITLAB_PORT}"
+echo "Clair Service    -> http://${PUBLIC_IP}:${CLAIR_PORT_1}"
 
 echo ""
 echo ""
