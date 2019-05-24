@@ -1,11 +1,15 @@
-web:
-  build: .
-  ports:
-    - "8080:8080"
-  links:
-    - db
-db:
-  environment:
-    - MYSQL_ROOT_PASSWORD=pass
-    - MYSQL_DATABASE=test
-  image: mysql
+version: '3'
+
+services: 
+  db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_DATABASE=test
+  app:
+    image: tablon-anuncios
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
